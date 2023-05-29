@@ -1,1 +1,354 @@
-This is home
+<!-- start banner Area -->
+<section class="banner-area relative">
+  <div class="overlay overlay-bg"></div>
+  <div class="container">
+    <div class="row fullscreen align-items-center justify-content-between">
+      <div class="col-lg-6 col-md-6 banner-left">
+        <h6 class="text-white">Khám phá Việt Nam</h6>
+        <h1 class="text-white">Đặt vé máy bay</h1>
+        <p class="text-white">
+          Phục vụ bạn bằng sự tận tình của chúng tôi, kèm theo nhiều ưu đãi cho
+          những giây phút thư giãn trên các chuyến bay
+        </p>
+        <a href="#" class="primary-btn text-uppercase">Bắt đầu</a>
+      </div>
+      <div class="col-lg-4 col-md-6 banner-right" style="margin-top:6rem">
+        <div class="tab-content" id="myTabContent">
+          <div
+            class="tab-pane fade show active"
+            id="flight"
+            role="tabpanel"
+            aria-labelledby="flight-tab"
+          >
+            <form class="form-wrap">
+              <!-- From -->
+              <div class="input-group-icon mt-10 form-control py-0">
+                <div class="form-select" id="default-select">
+                  <select name="from" id="select-from">
+                    <option>Từ</option>
+                  </select>
+                </div>
+              </div>
+              <!-- To -->
+              <div class="input-group-icon mt-10 form-control py-0">
+                <div class="form-select" id="default-select">
+                  <select name="to" id="select-from">
+                    <option>Đến</option>
+                  </select>
+                </div>
+              </div>
+              <input
+                type="text"
+                class="form-control date-picker"
+                name="start"
+                placeholder="Ngày đi "
+                onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Ngày đi '"
+              />
+              <input
+                type="text"
+                class="form-control date-picker"
+                name="return"
+                placeholder="Ngày về "
+                onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Ngày về '"
+              />
+              <input
+                type="number"
+                min="1"
+                max="20"
+                class="form-control"
+                name="members"
+                placeholder="Hành khách "
+                onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Người lớn '"
+              />
+              <div class="button-group-area mb-30">
+                <a
+                  href=""
+                  onclick="event.preventDefault()"
+                  id="btn-one-way"
+                  class="genric-btn success circle"
+                >Một chiều</a>
+                <a
+                  href=""
+                  onclick="event.preventDefault()"
+                  id="btn-round-trip"
+                  class="genric-btn success-border circle"
+                >Khứ hồi</a>
+              </div>
+              <a href="#" class="primary-btn text-uppercase">Tìm Chuyến bay</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End banner Area -->
+
+<!-- Start popular-destination Area -->
+<section class="popular-destination-area section-gap">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="menu-content pb-70 col-lg-8">
+        <div class="title text-center">
+          <h1 class="mb-10">Khám phá chuyến bay phổ biến</h1>
+          <p>Sống trọn vẹn con tim</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="single-destination relative">
+          <div class="thumb relative">
+            <div class="overlay overlay-bg"></div>
+            <img class="img-fluid" src="img/d1.jpg" alt="" />
+          </div>
+          <div class="desc">
+            <a href="#" class="price-btn">Đặt vé</a>
+            <h4>Hà Nội đi Phú Quốc</h4>
+            <p>12/12/2023</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="single-destination relative">
+          <div class="thumb relative">
+            <div class="overlay overlay-bg"></div>
+            <img class="img-fluid" src="img/d2.jpg" alt="" />
+          </div>
+          <div class="desc">
+            <a href="#" class="price-btn">$250</a>
+            <h4>Dream City</h4>
+            <p>Paris</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="single-destination relative">
+          <div class="thumb relative">
+            <div class="overlay overlay-bg"></div>
+            <img class="img-fluid" src="img/d3.jpg" alt="" />
+          </div>
+          <div class="desc">
+            <a href="#" class="price-btn">$350</a>
+            <h4>Cloud Mountain</h4>
+            <p>Sri Lanka</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End popular-destination Area -->
+
+<!-- Start blog Area -->
+<section class="recent-blog-area section-gap">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="menu-content pb-60 col-lg-9">
+        <div class="title text-center">
+          <h1 class="mb-10">Bài viết mới nhất</h1>
+          <p>Hiểu hơn về chúng tôi thông qua các bài viết</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="active-recent-blog-carusel">
+        <div class="single-recent-blog-post item">
+          <div class="thumb">
+            <img class="img-fluid" src="img/b1.jpg" alt="" />
+          </div>
+          <div class="details">
+            <div class="tags">
+              <ul>
+                <li>
+                  <a href="#">Travel</a>
+                </li>
+                <li>
+                  <a href="#">Life Style</a>
+                </li>
+              </ul>
+            </div>
+            <a href="#"><h4 class="title">Low Cost Advertising</h4></a>
+            <p>
+              Acres of Diamonds… you’ve read the famous story, or at least had
+              it related to you. A farmer.
+            </p>
+            <h6 class="date">31st January,2018</h6>
+          </div>
+        </div>
+        <div class="single-recent-blog-post item">
+          <div class="thumb">
+            <img class="img-fluid" src="img/b2.jpg" alt="" />
+          </div>
+          <div class="details">
+            <div class="tags">
+              <ul>
+                <li>
+                  <a href="#">Travel</a>
+                </li>
+                <li>
+                  <a href="#">Life Style</a>
+                </li>
+              </ul>
+            </div>
+            <a href="#"><h4 class="title">Creative Outdoor Ads</h4></a>
+            <p>
+              Acres of Diamonds… you’ve read the famous story, or at least had
+              it related to you. A farmer.
+            </p>
+            <h6 class="date">31st January,2018</h6>
+          </div>
+        </div>
+        <div class="single-recent-blog-post item">
+          <div class="thumb">
+            <img class="img-fluid" src="img/b3.jpg" alt="" />
+          </div>
+          <div class="details">
+            <div class="tags">
+              <ul>
+                <li>
+                  <a href="#">Travel</a>
+                </li>
+                <li>
+                  <a href="#">Life Style</a>
+                </li>
+              </ul>
+            </div>
+            <a href="#"><h4 class="title">It's Classified How To Utilize Free</h4></a>
+            <p>
+              Acres of Diamonds… you’ve read the famous story, or at least had
+              it related to you. A farmer.
+            </p>
+            <h6 class="date">31st January,2018</h6>
+          </div>
+        </div>
+        <div class="single-recent-blog-post item">
+          <div class="thumb">
+            <img class="img-fluid" src="img/b1.jpg" alt="" />
+          </div>
+          <div class="details">
+            <div class="tags">
+              <ul>
+                <li>
+                  <a href="#">Travel</a>
+                </li>
+                <li>
+                  <a href="#">Life Style</a>
+                </li>
+              </ul>
+            </div>
+            <a href="#"><h4 class="title">Low Cost Advertising</h4></a>
+            <p>
+              Acres of Diamonds… you’ve read the famous story, or at least had
+              it related to you. A farmer.
+            </p>
+            <h6 class="date">31st January,2018</h6>
+          </div>
+        </div>
+        <div class="single-recent-blog-post item">
+          <div class="thumb">
+            <img class="img-fluid" src="img/b2.jpg" alt="" />
+          </div>
+          <div class="details">
+            <div class="tags">
+              <ul>
+                <li>
+                  <a href="#">Travel</a>
+                </li>
+                <li>
+                  <a href="#">Life Style</a>
+                </li>
+              </ul>
+            </div>
+            <a href="#"><h4 class="title">Creative Outdoor Ads</h4></a>
+            <p>
+              Acres of Diamonds… you’ve read the famous story, or at least had
+              it related to you. A farmer.
+            </p>
+            <h6 class="date">31st January,2018</h6>
+          </div>
+        </div>
+        <div class="single-recent-blog-post item">
+          <div class="thumb">
+            <img class="img-fluid" src="img/b3.jpg" alt="" />
+          </div>
+          <div class="details">
+            <div class="tags">
+              <ul>
+                <li>
+                  <a href="#">Travel</a>
+                </li>
+                <li>
+                  <a href="#">Life Style</a>
+                </li>
+              </ul>
+            </div>
+            <a href="#"><h4 class="title">It's Classified How To Utilize Free</h4></a>
+            <p>
+              Acres of Diamonds… you’ve read the famous story, or at least had
+              it related to you. A farmer.
+            </p>
+            <h6 class="date">31st January,2018</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End recent-blog Area -->
+
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+        //init
+        const endpoint = 'https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat'
+        fetch(endpoint)
+            .then(response => response.text())
+            .then(data => {
+            const airports = data
+                .split('\n')
+                .map(line => line.split(','))
+                .filter(fields => fields[3] === '"Vietnam"')
+                .map(fields => ({
+                airportName: fields[2].replace(/"/g, ''),
+                airportCode: fields[4].replace(/"/g, ''),
+                // Add more fields as needed
+                }));
+
+            var htmlStr = ""  
+            var index = 0
+            airports.forEach((item)=>{
+                index += 1
+                if (item.airportCode != '\\N' && index < 13)
+                    htmlStr += `<option value=${item.airportCode} class="option">${item.airportName} (${item.airportCode})</option>\n`;
+
+            })
+            $('.form-select .nice-select .list').html(htmlStr)
+            })
+            .catch(error => {
+            console.error('Error:', error)
+            });
+
+        var oneWay = document.getElementById('btn-one-way')
+        var roundTrip = document.getElementById('btn-round-trip')
+        $('input[name="return"]').css('display', 'none')
+        oneWay.addEventListener('click', ()=>{
+            oneWay.classList.add('success')
+            oneWay.classList.remove('success-border')
+            roundTrip.classList.remove('success')
+            roundTrip.classList.add('success-border')
+            $('input[name="return"]').css('display', 'none')
+
+        })
+        roundTrip.addEventListener('click', ()=>{
+            roundTrip.classList.add('success')
+            roundTrip.classList.remove('success-border')
+            oneWay.classList.remove('success')
+            oneWay.classList.add('success-border')
+            $('input[name="return"]').css('display', 'block')
+        })	
+    })
+
+</script>

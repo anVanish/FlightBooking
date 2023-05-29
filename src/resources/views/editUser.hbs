@@ -1,0 +1,74 @@
+<!-- start banner Area -->
+<section class="about-banner relative">
+<div class="overlay overlay-bg"></div>
+<div class="container">				
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="about-content col-lg-12">
+            <h1 class="text-white">
+                Chỉnh sửa thông tin cá nhân				
+            </h1>	
+            <p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="insurance.html"> User</a></p>
+        </div>	
+    </div>
+</div>
+</section>
+<!-- End banner Area -->	
+
+<!-- Start contact-page Area -->
+<section class="contact-page-area section-gap">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 info-left">
+                <img class="img-fluid" src="../img/about/info-img.jpg" alt="">
+            </div>
+            <div class="col-lg-6 info-right">
+                <form action="#">
+                    <div class="mt-20">
+                        <h6 class="typo-list">Tên</h6>
+                        <input type="text" name="name" placeholder="Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên'" required class="single-input">
+                    </div>
+
+                    <div class="mt-20">
+                        <h6 class="typo-list">Email</h6>
+                        <input type="text" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required class="single-input">
+                    </div>
+
+                    <div class="mt-20">
+                        <h6 class="typo-list">Số điện thoại</h6>
+                        <input type="text" name="phone" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" required class="single-input">
+                    </div>
+
+                    <div class="mt-20">
+                        <h6 class="typo-list">Địa chỉ</h6>
+                        <input type="text" name="address" placeholder="Địa chỉ" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Địa chỉ'" required class="single-input">
+                    </div>
+                    
+                    <div class="button-group-area mt-30">
+                        <button type="submit" href="#" class="genric-btn primary circle">Cập nhật</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>	
+</section>
+<!-- End contact-page Area -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const homeLink = document.getElementById('home-link');
+        homeLink.href = window.location.origin + '/home';
+
+        const userLink = document.getElementById('user-link');
+        userLink.href = window.location.origin + '/user';
+
+        const aboutLink = document.getElementById('about-link');
+        aboutLink.href = window.location.origin + '/about';
+
+        const blogLink = document.getElementById('blog-link');
+        blogLink.href = window.location.origin + '/blog';
+
+        const loginLink = document.getElementById('login-link');
+        loginLink.href = window.location.origin + '/login';
+
+    })
+</script>
