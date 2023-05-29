@@ -23,25 +23,27 @@
         <div class="row">
             <div class="col-lg-8 posts-list">
                 <!-- each -->
+                {{#each blogs}}
                 <div class="single-post row">
                     <div class="col-lg-3  col-md-3 meta-details">
                         <div class="user-details row">
                             <p class="user-name col-lg-12 col-md-12 col-6"><a>Mark wiens</a> <span class="lnr lnr-user"></span></p>
-                            <p class="date col-lg-12 col-md-12 col-6"><a>12 Dec, 2017</a> <span class="lnr lnr-calendar-full"></span></p>
-                            <p class="view col-lg-12 col-md-12 col-6"><a>1.2M Views</a> <span class="lnr lnr-eye"></span></p>					
+                            <p class="date col-lg-12 col-md-12 col-6"><a>{{this.public_date}}</a> <span class="lnr lnr-calendar-full"></span></p>
+                            <p class="view col-lg-12 col-md-12 col-6"><a>{{this.view}} Views</a> <span class="lnr lnr-eye"></span></p>					
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9 ">
                         <div class="feature-img">
-                            <img class="img-fluid" src="img/blog/feature-img1.jpg" alt="">
+                            <img class="img-fluid" src="{{this.image}}" alt="">
                         </div>
-                        <a class="posts-title" href="blog-single.html"><h3>Title</h3></a>
-                        <p class="excert">
-                            Content	
+                        <a class="posts-title" href="blog-single.html"><h3>{{this.header}}</h3></a>
+                        <p class="excert hide-content-3">
+                            {{this.content}}	
                         </p>
-                        <a href="blog-single.html" class="primary-btn">Xem thêm</a>
+                        <a href="blog/{{this.article_id}}" class="primary-btn">Xem thêm</a>
                     </div>
-                </div>														
+                </div>	
+                {{/each}}													
             </div>
             <div class="col-lg-4 sidebar-widgets">
                 <div class="widget-wrap">
@@ -54,42 +56,17 @@
                     <div class="single-sidebar-widget popular-post-widget">
                         <h4 class="popular-title">Bài viết phổ biến</h4>
                         <div class="popular-post-list">
+                            {{#each pops}}
                             <div class="single-post-list d-flex flex-row align-items-center">
                                 <div class="thumb">
-                                    <img class="img-fluid" src="img/blog/pp1.jpg" alt="">
+                                    <img class="img-fluid" src="{{this.image}}" alt="" style="width: 200px;">
                                 </div>
                                 <div class="details">
-                                    <a href="blog-single.html"><h6>Space The Final Frontier</h6></a>
-                                    <p>02 Hours ago</p>
+                                    <a href="blog/{{this.article_id}}"><h6>{{this.header}}</h6></a>
+                                    <p>{{this.view}} Views</p>
                                 </div>
                             </div>
-                            <div class="single-post-list d-flex flex-row align-items-center">
-                                <div class="thumb">
-                                    <img class="img-fluid" src="img/blog/pp2.jpg" alt="">
-                                </div>
-                                <div class="details">
-                                    <a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
-                                    <p>02 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="single-post-list d-flex flex-row align-items-center">
-                                <div class="thumb">
-                                    <img class="img-fluid" src="img/blog/pp3.jpg" alt="">
-                                </div>
-                                <div class="details">
-                                    <a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
-                                    <p>02 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="single-post-list d-flex flex-row align-items-center">
-                                <div class="thumb">
-                                    <img class="img-fluid" src="img/blog/pp4.jpg" alt="">
-                                </div>
-                                <div class="details">
-                                    <a href="blog-single.html"><h6>Asteroids telescope</h6></a>
-                                    <p>02 Hours ago</p>
-                                </div>
-                            </div>															
+                            {{/each}}															
                         </div>
                     </div>							
                 </div>

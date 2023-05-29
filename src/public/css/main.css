@@ -4497,3 +4497,11 @@ body.mobile-nav-active #mobile-nav-toggle {
 .footer-text a, .footer-text i {
   color: #f8b600;
 }
+
+.hide-content-3{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: justify;
+}

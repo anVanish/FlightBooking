@@ -7,7 +7,13 @@
             <h1 class="text-white">
                 Chỉnh sửa thông tin cá nhân				
             </h1>	
-            <p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="insurance.html"> User</a></p>
+            <p class="text-white link-nav">
+                <a href="../home">Home </a> 
+                <span class="lnr lnr-arrow-right"></span> 
+                <a href="../User">User</a>
+                <span class="lnr lnr-arrow-right"></span> 
+                <a href="">User Details</a>
+            </p>
         </div>	
     </div>
 </div>
@@ -22,29 +28,46 @@
                 <img class="img-fluid" src="../img/about/info-img.jpg" alt="">
             </div>
             <div class="col-lg-6 info-right">
-                <form action="#">
+                <form action="#" id="form-update">
                     <div class="mt-20">
                         <h6 class="typo-list">Tên</h6>
-                        <input type="text" name="name" placeholder="Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên'" required class="single-input">
+                        <input type="text" value="{{user.user_name}}" name="user_name" placeholder="Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên'" required class="single-input">
                     </div>
 
                     <div class="mt-20">
                         <h6 class="typo-list">Email</h6>
-                        <input type="text" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required class="single-input">
+                        <input type="text" value="{{user.email}}" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required class="single-input">
                     </div>
 
                     <div class="mt-20">
                         <h6 class="typo-list">Số điện thoại</h6>
-                        <input type="text" name="phone" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" required class="single-input">
+                        <input type="text" value="{{user.phone_number}}" name="phone_number" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" required class="single-input">
+                    </div>
+
+                    <div class="mt-20">
+                        <h6 class="typo-list">Ngày sinh</h6>
+                        <input type="date" value="{{user.date_of_birth}}" name="date_of_birth" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" required class="single-input">
                     </div>
 
                     <div class="mt-20">
                         <h6 class="typo-list">Địa chỉ</h6>
-                        <input type="text" name="address" placeholder="Địa chỉ" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Địa chỉ'" required class="single-input">
+                        <input type="text" value="{{user.address}}" name="address" placeholder="Địa chỉ" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Địa chỉ'" required class="single-input">
+                    </div>
+
+                    <div class="mt-20">
+                        <h6 class="typo-list">Giới tính</h6>
+                        <div class="input-group-icon mt-10 form-control pt-0 pb-0">
+                            <div class="form-select" id="default-select">
+                                <select name="gender">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="button-group-area mt-30">
-                        <button type="submit" href="#" class="genric-btn primary circle">Cập nhật</button>
+                        <button type="submit" id="btn-update" class="genric-btn primary circle">Cập nhật</button>
                     </div>
                 </form>
             </div>
@@ -70,5 +93,23 @@
         const loginLink = document.getElementById('login-link');
         loginLink.href = window.location.origin + '/login';
 
+
+        $('#btn-update').on('click', function(event){
+            event.preventDefault()
+            $.ajax({
+                url: '',
+                method: 'post',
+                data: $('#form-update').serialize(),
+                success: function (res) {
+                    if (res) {
+                        alert(res)
+                    }
+                    else {
+                        window.location.href = '/user/edit'
+                        alert('Cập nhật thành công')
+                    }
+                }
+            })
+        })
     })
 </script>
