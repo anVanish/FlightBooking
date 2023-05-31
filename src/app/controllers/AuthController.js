@@ -7,7 +7,7 @@ class AuthController{
     login(req, res, next){
         if (!req.session.user)
             res.render('login')
-        else res.redirect('/user')
+        else res.redirect('/home')
     }
 
     //POST /login

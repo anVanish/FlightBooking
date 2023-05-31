@@ -34,15 +34,20 @@
 
         <!-- Flights List Start -->
         <div class="col-lg-9 col-md-12">
+            {{#each tickets}}
             <div class="pb-3 ">
                 <div class="post-content-area rounded-lg mb-4">
                     <table class="table order-table text-center mb-0">
                         <tbody class="align-middle">
                             <tr>
-                                <th>#Ngày đặt vé 12/12/2023</th>
+                                <th>#Ngày đặt vé {{this.bookAt}}</th>
                                 <th></th>
                                 <th></th>
+                                {{#if this.is_checkin}}
+                                <th>Đã Check in</th>
+                                {{else}}
                                 <th>Chờ bay</th>
+                                {{/if}}
                                 <th></th>
                             </tr>
                             <tr>
@@ -53,25 +58,26 @@
                                     <a href="" class="p-1 hide-content-1 m-0 text-lg font-bold">
                                         <span class="hide-content-1">Hà Nội đến Nha Trang</span><br>
                                         <span class="hide-content-2 text-base font-normal">VietnamAirline</span><br>
-                                        <span class="hide-content-2 text-base font-normal">Hành khách: 1</span>
+                                        <span class="hide-content-2 text-base font-normal">Hành khách: {{this.passenger_count}}</span>
                                     </a>
                                 </td>
                                 <td class="align-middle"></td>
                                 <td class="align-middle"></td>
-                                <td class="align-middle">Code A10201020</td>
+                                <td class="align-middle">Code {{this.code}}</td>
                                 <td class="align-middle"></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td class="text-primary text-xl font-semibold">Tổng đơn</td>
-                                <td class="text-xl font-semibold">120.000vnd</td>
+                                <td class="text-xl font-semibold">{{this.total}}vnd</td>
                                 <td></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            {{/each}}
         </div>
         <!-- Flights List End -->
     </div>

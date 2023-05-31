@@ -1,4 +1,5 @@
 const GeneralRepo = require('../repository/GeneralRepository')
+const User = require('../models/UserModel')
 
 class GeneralController{
 
@@ -49,26 +50,82 @@ class GeneralController{
                     pops
                 })
             })
-        // GeneralRepo.findBlogById(id)
-        //     .then(([[blog]]) => {
-        //         const newDate = blog.public_date.toISOString().split('T')[0]
-        //         blog.public_date = newDate
-        //         const contents = blog.content.split('\\n')
-        //         try{
-        //             blog.first = contents[0]
-        //             blog.second = contents[1]
-        //             blog.third = contents[2]
-        //         }catch(err){
-                    
-        //         }
-        //         res.render('blogDetail', {
-        //             blog
-        //         })
-        //     })
     }
 
+    //POST /seat
+    seat(req, res, next){
+        var members = req.session.members || -1
+        if (members == -1){
+            res.redirect('home')
+            return
+        }
+        var flight = req.session.flight
+        var passengers = []
+        if (members == 1){
+            passengers.push(new User(req.body))
+        }
+        else{
+            var input = req.body
+            for (var i = 0; i < members; i++){
+                var passenger = {}
+                Object.keys(input).forEach(key =>{
+                    passenger[key] = input[key][i]
+                })
+                passengers.push(new User(passenger))
+            }
+        }
+        //save passengers
+        req.session.passengers = passengers
+        var total = req.session.total
+        Promise.all([GeneralRepo.findAllSeat(), GeneralRepo.findBookingSeat(flight.flight_id)])
+            .then((results) =>{
+                var seat_map = results[0][0]
+                var seat_booked = results[1][0]
 
+                seat_booked.forEach(item =>{
+                    var index = item.seat_id - 1
+                    seat_map[index].status = true
+                })
+                const maps = [];
+                let index = 0;
+                
+                for (let i = 0; i < 9; i++) {
+                  const row = [];
+                  for (let j = 0; j < 4; j++) {
+                    row.push(seat_map[index]);
+                    index++;
+                  }
+                  maps.push(row);
+                }
 
+                res.render('seat', {
+                    flight,
+                    total,
+                    members,
+                    maps
+                })
+            })
+    }
+
+    //POST /checkout
+    checkout(req, res, next){
+        var members = req.session.members || -1
+        if (members == -1){
+            res.redirect('back')
+            return
+        }
+        var flight = req.session.flight
+        
+        var seatIds = req.body.seat.split(';')
+        seatIds.pop()
+        req.session.seatIds = seatIds
+
+        res.render('checkout',{
+            flight,
+            members
+        })
+        
+    }
 }
 
 module.exports = new GeneralController()

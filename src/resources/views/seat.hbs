@@ -1,0 +1,139 @@
+<!-- start banner Area -->
+<section class="about-banner relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">				
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Chọn ghế			
+                </h1>	
+                <p class="text-white link-nav"> 
+                    Chọn chuyến bay
+                    <span class="lnr lnr-arrow-right"></span> 
+                    Hành khách 
+                    <span class="lnr lnr-arrow-right"></span> 
+                    <b>Chọn ghế</b>
+                    <span class="lnr lnr-arrow-right"></span> 
+                    Thanh toán
+                </p>
+            </div>	
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->	
+
+
+<!-- User Info Start -->
+<div class="container-fluid pt-4">
+    <div class="row">
+        
+        <!-- Flights List Start -->
+        <div class="col-lg-8 col-md-12">
+            <div class="pb-3 ">
+                <div class="post-content-area rounded-lg mb-4 pt-3 pb-4">
+                    <h3 class="text-primary text-center">Lựa chọn ghế ngồi</h3>
+                    {{#each maps}}
+                    <div class="button-group-area mt-10 flex justify-content-center">
+                        {{#each this}}
+                        {{#if this.status}}
+                        <a href="#" id="{{this.seat_id}}" onclick="event.preventDefault()" class="genric-btn info-border disable seat">{{this.seat_name}}</a>                               
+                        {{else}}
+                        <a href="#" id="{{this.seat_id}}" onclick="event.preventDefault()" class="genric-btn info-border  seat">{{this.seat_name}}</a>                               
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                    {{/each}}
+                    
+                    <div class="col-lg-12">
+                        <div class="alert-msg" style="text-align: left;"></div>
+                        <button id="btn-continue" class="genric-btn primary" style="float: right;">Tiếp tục</button>											
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Flights List End -->
+
+        <!-- User Sidebar Start -->
+        <div class="col-lg-4 col-md-12">
+            <div class="card mb-4 border-0 pl-4 post-content-area">
+                
+                <div class="post-content-area rounded-lg mb-4">
+                    <table class="table order-table text-center mb-0">
+                        <tbody class="align-middle">
+                            <tr>
+                                <th colspan="2" class="text-left"><h4 class="text-primary">Chi tiết chuyến bay</h4></th>
+                            </tr>
+                            <tr>
+                                <td class="align-middle text-left">
+                                    <i class="fa fa-plane pr-2" aria-hidden="true"></i>
+                                    {{flight.place_from.place_code}} <span class="lnr lnr-arrow-right"></span> {{flight.place_to.place_code}}
+                                </td>
+                                <td class="align-middle">{{flight.price}} VND</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle text-left" colspan="2">Khởi hành {{flight.depature_time}}:00</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle text-left" colspan="2">
+                                    {{flight.place_from.place_name}} <i class="fa fa-plane pr-2 pl-2" aria-hidden="true"></i> {{flight.place_to.place_name}}
+                                    <br>{{flight.flight_name}} - {{flight.plane_name}}
+                                    <br>Hành khách x{{members}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle text-left text-primary" style="font-size: 1.2rem;">Tổng tiền</td>
+                                <td class="align-middle" style="font-size: 1.2rem;">{{total}} VND</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- User Sidebar End -->
+    </div>
+</div>
+<!-- User Info End -->
+
+<input type="number" name="" id="member" value="{{members}}" style="display: none;">
+<form action="checkout" method="post" id="form-selection">
+    <input type="text" name="seat" id="seat-selection" style="display: none;">
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        index = 0
+        seatArray = []
+        max = $('#member').val()
+        $('.seat').on('click', function(){
+            if ($(this).hasClass("disable"))
+                return
+            if ($(this).hasClass('info')){
+                index--
+                seatArray = seatArray.filter(item => item !== $(this).attr('id'))   
+            }else{
+                index++
+                if (index > max){
+                    index --
+                    return
+                }
+                seatArray.push($(this).attr('id'))
+            }
+            $(this).toggleClass('info')
+            $(this).toggleClass('info-border')
+        })
+        $('#btn-continue').click(function(event){
+            event.preventDefault()
+            if (seatArray.length != max){
+                alert('Vui lòng chọn ghế ngồi')
+                return
+            }
+            var message = ''
+            seatArray.forEach(item =>{
+                message += item + ";"
+            })
+            $('#seat-selection').val(message)
+            $('#form-selection').submit()
+        })
+    })
+</script>
+

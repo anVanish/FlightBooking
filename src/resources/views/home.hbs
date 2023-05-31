@@ -20,20 +20,30 @@
             role="tabpanel"
             aria-labelledby="flight-tab"
           >
-            <form class="form-wrap">
+            <form class="form-wrap" id="form-search" method="POST" action="/flight">
               <!-- From -->
               <div class="input-group-icon mt-10 form-control py-0">
-                <div class="form-select" id="default-select">
+                <div class="form-select form-select-from" id="default-select">
                   <select name="from" id="select-from">
                     <option>Từ</option>
+                    <option value="DAD" class="option">Đà Nẵng (DAD)</option>
+                    <option value="HAN" class="option focus">Hà Nội (HAN)</option>
+                    <option value="NHA" class="option selected">Nha Trang (NHA)</option>
+                    <option value="HUI" class="option">Huế (HUI)</option>
+                    <option value="SGN" class="option">TP.Hồ Chí Minh (SGN)</option>
                   </select>
                 </div>
               </div>
               <!-- To -->
               <div class="input-group-icon mt-10 form-control py-0">
-                <div class="form-select" id="default-select">
-                  <select name="to" id="select-from">
+                <div class="form-select form-select-to" id="default-select">
+                  <select name="to" id="select-to">
                     <option>Đến</option>
+                    <option value="DAD" class="option">Đà Nẵng (DAD)</option>
+                    <option value="HAN" class="option focus">Hà Nội (HAN)</option>
+                    <option value="NHA" class="option selected">Nha Trang (NHA)</option>
+                    <option value="HUI" class="option">Huế (HUI)</option>
+                    <option value="SGN" class="option">TP.Hồ Chí Minh (SGN)</option>
                   </select>
                 </div>
               </div>
@@ -77,7 +87,8 @@
                   class="genric-btn success-border circle"
                 >Khứ hồi</a>
               </div>
-              <a href="#" class="primary-btn text-uppercase">Tìm Chuyến bay</a>
+              <input type="checkbox" name="oneway" style="display: none">
+              <button type="submit" id="find-flight" class="primary-btn text-uppercase">Tìm Chuyến bay</button>
             </form>
           </div>
         </div>
@@ -301,54 +312,44 @@
 <!-- End recent-blog Area -->
 
 <script>
-        document.addEventListener('DOMContentLoaded', () => {
-        //init
-        const endpoint = 'https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat'
-        fetch(endpoint)
-            .then(response => response.text())
-            .then(data => {
-            const airports = data
-                .split('\n')
-                .map(line => line.split(','))
-                .filter(fields => fields[3] === '"Vietnam"')
-                .map(fields => ({
-                airportName: fields[2].replace(/"/g, ''),
-                airportCode: fields[4].replace(/"/g, ''),
-                // Add more fields as needed
-                }));
+  document.addEventListener('DOMContentLoaded', () => {
+      $('input[name=oneway]').prop('checked', true)
+      var oneWay = document.getElementById('btn-one-way')
+      var roundTrip = document.getElementById('btn-round-trip')
+      $('input[name="return"]').css('display', 'none')
+      oneWay.addEventListener('click', ()=>{
+          oneWay.classList.add('success')
+          oneWay.classList.remove('success-border')
+          roundTrip.classList.remove('success')
+          roundTrip.classList.add('success-border')
+          $('input[name="return"]').css('display', 'none').val('')
+          $('input[name=oneway]').prop('checked', true)
+      })
+      roundTrip.addEventListener('click', ()=>{
+          roundTrip.classList.add('success')
+          roundTrip.classList.remove('success-border')
+          oneWay.classList.remove('success')
+          oneWay.classList.add('success-border')
+          $('input[name="return"]').css('display', 'block')
+          $('input[name=oneway]').prop('checked', false)
+      })
 
-            var htmlStr = ""  
-            var index = 0
-            airports.forEach((item)=>{
-                index += 1
-                if (item.airportCode != '\\N' && index < 13)
-                    htmlStr += `<option value=${item.airportCode} class="option">${item.airportName} (${item.airportCode})</option>\n`;
-
-            })
-            $('.form-select .nice-select .list').html(htmlStr)
-            })
-            .catch(error => {
-            console.error('Error:', error)
-            });
-
-        var oneWay = document.getElementById('btn-one-way')
-        var roundTrip = document.getElementById('btn-round-trip')
-        $('input[name="return"]').css('display', 'none')
-        oneWay.addEventListener('click', ()=>{
-            oneWay.classList.add('success')
-            oneWay.classList.remove('success-border')
-            roundTrip.classList.remove('success')
-            roundTrip.classList.add('success-border')
-            $('input[name="return"]').css('display', 'none')
-
+      $('#find-flight').on('click', function(e){
+        e.preventDefault()
+        $.ajax({
+            url: '/flight/check',
+            method: 'post',
+            data: $('#form-search').serialize(),
+            success: function (res) {
+                if (res) {
+                    alert(res)
+                }
+                else {
+                    $('#form-search').submit()
+                }
+            }
         })
-        roundTrip.addEventListener('click', ()=>{
-            roundTrip.classList.add('success')
-            roundTrip.classList.remove('success-border')
-            oneWay.classList.remove('success')
-            oneWay.classList.add('success-border')
-            $('input[name="return"]').css('display', 'block')
-        })	
-    })
+      })
+  })
 
 </script>

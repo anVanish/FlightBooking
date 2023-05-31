@@ -1,0 +1,117 @@
+<!-- start banner Area -->
+<section class="about-banner relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">				
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Hành khách			
+                </h1>	
+                <p class="text-white link-nav"> 
+                    Chọn chuyến bay
+                    <span class="lnr lnr-arrow-right"></span> 
+                    <b>Hành khách</b> 
+                    <span class="lnr lnr-arrow-right"></span> 
+                    Chọn ghế
+                    <span class="lnr lnr-arrow-right"></span> 
+                    Thanh toán
+                </p>
+            </div>	
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->	
+
+
+<!-- User Info Start -->
+<div class="container-fluid pt-4">
+    <div class="row">
+        
+        <!-- Flights List Start -->
+        <div class="col-lg-8 col-md-12">
+            <div class="pb-3 ">
+                <div class="post-content-area rounded-lg mb-4">
+                    <section class="contact-page-area section-gap pt-4">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form class="form-area contact-form text-right" id="form-pass" action="/seat" method="post">
+                                        {{#each memberArr}}
+                                        <h3 class="text-primary text-left mb-20">Thông tin hành khách</h3>	
+                                        <div class="row">
+                                            <div class="col-lg-6 form-group">
+                                                <input name="user_name" placeholder="Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên'" class="common-input mb-20 form-control" required="" type="text">
+                                            
+                                                <input name="email" placeholder="Email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="common-input mb-20 form-control" required="" type="email">
+        
+                                                <input name="date_of_birth" type="date" placeholder="Ngày sinh" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ngày sinh'" class="common-input mb-20 form-control" required="" type="text">
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <input name="phone_number" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" class="common-input mb-20 form-control" required="" type="text">                                                        
+                                                <div class="input-group-icon mt-10 form-control">
+                                                    <div class="form-select" id="default-select">
+                                                        <select name="gender">
+                                                            <option>Giới tính</option>
+                                                            <option>Nam</option>
+                                                            <option>Nữ</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                        <div class="col-lg-12">
+                                            <div class="alert-msg" style="text-align: left;"></div>
+                                            <button class="genric-btn primary" type="submit" style="float: right;">Tiếp tục</button>											
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>	
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- Flights List End -->
+
+        <!-- User Sidebar Start -->
+        <div class="col-lg-4 col-md-12">
+            <div class="card mb-4 border-0 pl-4 post-content-area">
+                
+                <div class="post-content-area rounded-lg mb-4">
+                    <table class="table order-table text-center mb-0">
+                        <tbody class="align-middle">
+                            <tr>
+                                <th colspan="2" class="text-left"><h4 class="text-primary">Chi tiết chuyến bay</h4></th>
+                            </tr>
+                            <tr>
+                                <td class="align-middle text-left">
+                                    <i class="fa fa-plane pr-2" aria-hidden="true"></i>
+                                    {{flight.place_from.place_code}} <span class="lnr lnr-arrow-right"></span> {{flight.place_to.place_code}}
+                                </td>
+                                <td class="align-middle">{{flight.price}} VND</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle text-left" colspan="2">Khởi hành {{flight.depature_time}}:00</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle text-left" colspan="2">
+                                    {{flight.place_from.place_name}} <i class="fa fa-plane pr-2 pl-2" aria-hidden="true"></i> {{flight.place_to.place_name}}
+                                    <br>{{flight.flight_name}} - {{flight.plane_name}}
+                                    <br>Hành khách x{{members}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle text-left text-primary" style="font-size: 1.2rem;">Tổng tiền</td>
+                                <td class="align-middle" style="font-size: 1.2rem;">{{total}} VND</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- User Sidebar End -->
+
+    </div>
+</div>
+<!-- User Info End -->

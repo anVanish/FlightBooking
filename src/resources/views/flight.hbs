@@ -1,0 +1,80 @@
+<!-- start banner Area -->
+<section class="about-banner relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">				
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Chọn chuyến bay				
+                </h1>	
+                <p class="text-white link-nav"> 
+                    <b>Chọn chuyến bay</b>
+                    <span class="lnr lnr-arrow-right"></span> 
+                    Hành khách 
+                    <span class="lnr lnr-arrow-right"></span> 
+                    Chọn ghế
+                    <span class="lnr lnr-arrow-right"></span> 
+                    Thanh toán
+                </p>
+            </div>	
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->	
+
+<!-- User Info Start -->
+<div class="container-fluid pt-4">
+    <div class="row">
+        <!-- Flights List Start -->
+        <div class=" col-md-12">
+            {{#if notFound}}
+            <h2>Không tìm thấy chuyến bay phù hợp</h2>
+            {{else}}
+            {{#each flights}}
+            <div class="pb-3 ">
+                <div class="post-content-area rounded-lg mb-4">
+                    <table class="table order-table text-center mb-0">
+                        <tbody class="align-middle">
+                            <tr>
+                                <th></th>
+                                <th class="text-primary higher-font-size">{{this.depature_time}}:00</th>
+                                <th></th>
+                                <th class="text-primary higher-font-size">{{this.arrival_time}}:00</th>
+                                <th>{{this.flight_name}}</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td class="align-
+                                middle text-left flex max-w-xl" style="justify-content: right;">
+                                    <img src="https://seekvectorlogo.com/wp-content/uploads/2022/01/vietnam-airlines-vector-logo-2022-small.png" alt=""
+                                    class="mr-3" style="width: 7rem; height: 7rem;">
+                                </td>
+                                <td class="align-middle higher-font-size bold-font-weight">{{this.place_from.place_name}} ({{this.place_from.place_code}})</td>
+                                <td class="align-middle higher-font-size bold-font-weight">
+                                    <span class="lnr lnr-arrow-right"></span> 
+                                </td>
+                                <td class="align-middle higher-font-size bold-font-weight">{{this.place_to.place_name}} ({{this.place_to.place_code}})</td>
+                                <td class="align-middle higher-font-size"><div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>{{this.plane_name}}</td>
+                                <td class="align-middle">
+                                    <div class="button-group-area">
+                                        <form action="/passenger" method="post">
+                                            <input type="text" name="flight_id" value="{{this.flight_id}}" style="display: none">
+                                            <button type="submit" class="genric-btn primary radius" style="font-size: 1rem;">
+                                                {{this.price}} VND
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {{/each}}
+            {{/if}}
+            
+        </div>
+        <!-- Flights List End -->
+    </div>
+</div>
+<!-- User Info End -->

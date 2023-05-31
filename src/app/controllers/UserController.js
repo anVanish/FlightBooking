@@ -1,4 +1,6 @@
 const User = require('../models/UserModel')
+const FlightRepo = require('../repository/FligthRepository')
+const GeneralRepo = require('../repository/GeneralRepository')
 const UserRepo = require('../repository/UserRepository')
 
 class UserController{
@@ -9,9 +11,22 @@ class UserController{
             return
         }
         var name = req.cookies.user.user_name
-        res.render('user', {
-            name
-        })
+        FlightRepo.findAllTicket(req.cookies.user.user_id)
+            .then(([results]) =>{
+                var tickets = results.map(item=>{
+                    return {
+                        ...item,
+                        'bookAt': item.bookAt.toISOString().split('T')[0]
+                    }
+                })
+                res.render('user', {
+                    name,
+                    tickets
+                })
+            })
+        // res.render('user', {
+        //     name
+        // })
     }
 
     //Get /user/edit
