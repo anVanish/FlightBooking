@@ -82,6 +82,7 @@ class FlightController{
         var passengers = req.session.passengers
         var seatIds = req.session.seatIds
         
+        // transaction
         // save passengers
         // save passenger_booking
         passengers.forEach(item=>{

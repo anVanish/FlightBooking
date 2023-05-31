@@ -24,4 +24,4 @@ UserRepo.getNewUser = () =>{
     return db.execute(sql)
 }
 
-module.exports = UserRepo
+module.exports = UserRepo   
