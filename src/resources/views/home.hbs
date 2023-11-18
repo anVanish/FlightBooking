@@ -118,8 +118,8 @@
           </div>
           <div class="desc">
             <a href="#" class="price-btn">Đặt vé</a>
-            <h4>Hà Nội đi Phú Quốc</h4>
-            <p>12/12/2023</p>
+            <h4>Hà Nội đi Nha Trang</h4>
+            <p>12/04/2023</p>
           </div>
         </div>
       </div>
@@ -130,9 +130,9 @@
             <img class="img-fluid" src="img/d2.jpg" alt="" />
           </div>
           <div class="desc">
-            <a href="#" class="price-btn">$250</a>
-            <h4>Dream City</h4>
-            <p>Paris</p>
+            <a href="#" class="price-btn">Đặt vé</a>
+            <h4>Đà Nẵng đi TP.Hồ Chí Minh</h4>
+            <p>16/02/2023</p>
           </div>
         </div>
       </div>
@@ -143,9 +143,9 @@
             <img class="img-fluid" src="img/d3.jpg" alt="" />
           </div>
           <div class="desc">
-            <a href="#" class="price-btn">$350</a>
-            <h4>Cloud Mountain</h4>
-            <p>Sri Lanka</p>
+            <a href="#" class="price-btn">Đặt vé</a>
+            <h4>Huế đi Hà Nội</h4>
+            <p>16/04/2023</p>
           </div>
         </div>
       </div>
@@ -167,144 +167,20 @@
     </div>
     <div class="row">
       <div class="active-recent-blog-carusel">
+        {{#each pops}}
         <div class="single-recent-blog-post item">
           <div class="thumb">
-            <img class="img-fluid" src="img/b1.jpg" alt="" />
+            <img class="img-fluid" src="{{this.image}}" alt="" />
           </div>
           <div class="details">
-            <div class="tags">
-              <ul>
-                <li>
-                  <a href="#">Travel</a>
-                </li>
-                <li>
-                  <a href="#">Life Style</a>
-                </li>
-              </ul>
-            </div>
-            <a href="#"><h4 class="title">Low Cost Advertising</h4></a>
-            <p>
-              Acres of Diamonds… you’ve read the famous story, or at least had
-              it related to you. A farmer.
+            <a href="blog/{{this.article_id}}"><h4 class="title hide-content-1">{{this.header}}</h4></a>
+            <p class="hide-content-3">
+              {{this.content}}.
             </p>
-            <h6 class="date">31st January,2018</h6>
+            <h6 class="date">{{this.public_date}} ({{this.view}} Views)</h6>
           </div>
         </div>
-        <div class="single-recent-blog-post item">
-          <div class="thumb">
-            <img class="img-fluid" src="img/b2.jpg" alt="" />
-          </div>
-          <div class="details">
-            <div class="tags">
-              <ul>
-                <li>
-                  <a href="#">Travel</a>
-                </li>
-                <li>
-                  <a href="#">Life Style</a>
-                </li>
-              </ul>
-            </div>
-            <a href="#"><h4 class="title">Creative Outdoor Ads</h4></a>
-            <p>
-              Acres of Diamonds… you’ve read the famous story, or at least had
-              it related to you. A farmer.
-            </p>
-            <h6 class="date">31st January,2018</h6>
-          </div>
-        </div>
-        <div class="single-recent-blog-post item">
-          <div class="thumb">
-            <img class="img-fluid" src="img/b3.jpg" alt="" />
-          </div>
-          <div class="details">
-            <div class="tags">
-              <ul>
-                <li>
-                  <a href="#">Travel</a>
-                </li>
-                <li>
-                  <a href="#">Life Style</a>
-                </li>
-              </ul>
-            </div>
-            <a href="#"><h4 class="title">It's Classified How To Utilize Free</h4></a>
-            <p>
-              Acres of Diamonds… you’ve read the famous story, or at least had
-              it related to you. A farmer.
-            </p>
-            <h6 class="date">31st January,2018</h6>
-          </div>
-        </div>
-        <div class="single-recent-blog-post item">
-          <div class="thumb">
-            <img class="img-fluid" src="img/b1.jpg" alt="" />
-          </div>
-          <div class="details">
-            <div class="tags">
-              <ul>
-                <li>
-                  <a href="#">Travel</a>
-                </li>
-                <li>
-                  <a href="#">Life Style</a>
-                </li>
-              </ul>
-            </div>
-            <a href="#"><h4 class="title">Low Cost Advertising</h4></a>
-            <p>
-              Acres of Diamonds… you’ve read the famous story, or at least had
-              it related to you. A farmer.
-            </p>
-            <h6 class="date">31st January,2018</h6>
-          </div>
-        </div>
-        <div class="single-recent-blog-post item">
-          <div class="thumb">
-            <img class="img-fluid" src="img/b2.jpg" alt="" />
-          </div>
-          <div class="details">
-            <div class="tags">
-              <ul>
-                <li>
-                  <a href="#">Travel</a>
-                </li>
-                <li>
-                  <a href="#">Life Style</a>
-                </li>
-              </ul>
-            </div>
-            <a href="#"><h4 class="title">Creative Outdoor Ads</h4></a>
-            <p>
-              Acres of Diamonds… you’ve read the famous story, or at least had
-              it related to you. A farmer.
-            </p>
-            <h6 class="date">31st January,2018</h6>
-          </div>
-        </div>
-        <div class="single-recent-blog-post item">
-          <div class="thumb">
-            <img class="img-fluid" src="img/b3.jpg" alt="" />
-          </div>
-          <div class="details">
-            <div class="tags">
-              <ul>
-                <li>
-                  <a href="#">Travel</a>
-                </li>
-                <li>
-                  <a href="#">Life Style</a>
-                </li>
-              </ul>
-            </div>
-            <a href="#"><h4 class="title">It's Classified How To Utilize Free</h4></a>
-            <p>
-              Acres of Diamonds… you’ve read the famous story, or at least had
-              it related to you. A farmer.
-            </p>
-            <h6 class="date">31st January,2018</h6>
-          </div>
-        </div>
+        {{/each}}
       </div>
     </div>
   </div>

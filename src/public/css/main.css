@@ -4498,6 +4498,22 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #f8b600;
 }
 
+.hide-content-1{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: justify;
+}
+
+.hide-content-2{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: justify;
+}
+
 .hide-content-3{
   display: -webkit-box;
   -webkit-line-clamp: 3;

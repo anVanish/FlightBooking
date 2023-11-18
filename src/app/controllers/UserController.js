@@ -47,6 +47,21 @@ class UserController{
     postEdit(req, res, next){
         var user = new User(req.body)
         user.user_id = req.cookies.user.user_id
+        
+        //Validation
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        const phone_regex = /^\d{10}$/
+        if (user.name === ''){res.send('Tên người dùng không thể để trống');  return}
+        else if (user.email === ''){res.send('Email không thể để trống'); return}
+        else if (!regex.test(user.email)){res.send('Email không hợp lệ'); return}
+        else if (!phone_regex.test(user.phone_number) && user.phone_number !== '')
+            {
+                res.send('Số điện thoại không hợp lệ'); return
+            }
+        else if (new Date(user.date_of_birth) >= new Date(Date.now() - (12 * 365 * 24 * 60 * 60 * 1000)))
+            {res.send('Ngày sinh không hợp lệ! Độ tuổi phải lớn hơn 12'); return}
+        
+        //update
         UserRepo.update(user)
             .then((result) =>{
                 res.clearCookie('user')
