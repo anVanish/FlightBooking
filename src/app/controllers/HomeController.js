@@ -5,18 +5,19 @@ class HomeController{
 
     //GET / | /home
     index(res, req, next){
-        GeneralRepo.findPopBlog()
-            .then(([results]) =>{
-                var pops = results.map(item =>{
-                    return {
-                        ...item,
-                        'public_date': item.public_date.toISOString().split('T')[0]
-                    }
-                })
-                req.render('home', {
-                    pops
-                })
-            })
+        req.render('home')
+        // GeneralRepo.findPopBlog()
+        //     .then(([results]) =>{
+        //         var pops = results.map(item =>{
+        //             return {
+        //                 ...item,
+        //                 'public_date': item.public_date.toISOString().split('T')[0]
+        //             }
+        //         })
+        //         req.render('home', {
+        //             pops
+        //         })
+        //     })
     }
 }
 
