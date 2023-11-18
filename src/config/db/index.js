@@ -16,4 +16,4 @@ connection.connect(function(err){
     }
 })
 
-module.exports = connection.promise()
+module.exports = null
