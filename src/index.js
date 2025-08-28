@@ -12,7 +12,7 @@ const route = require("./routes");
 
 dotenv.config();
 
-const port = 3000;
+const port = process.env.PORT;
 const app = express();
 
 //connect to db
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //session
 app.use(
     session({
-        secret: "vanish",
+        secret: process.env.SECRET_KEY,
         resave: false,
         saveUninitialized: true,
     })
