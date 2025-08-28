@@ -1,6 +1,4 @@
 const Flight = require("../models/FlightModel");
-const FlightRepo = require("../repository/FligthRepository");
-const GeneralRepo = require("../repository/GeneralRepository");
 
 class PassengerController {
     //POST /passenger/check

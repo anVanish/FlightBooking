@@ -1,5 +1,5 @@
-const UserRepo = require("../repository/UserRepository");
-const User = require("../models/UserModel");
+const Users = require("../models/UserModel");
+const bcrypt = require("bcryptjs");
 
 class AuthController {
     //GET /login
@@ -9,39 +9,25 @@ class AuthController {
     }
 
     //POST /login
-    postLogin(req, res, next) {
-        var email = req.body.email;
-        var password = req.body.password;
+    async postLogin(req, res, next) {
+        try {
+            var email = req.body.email;
+            var password = req.body.password;
 
-        if (email === "") {
-            res.send("Vui lòng nhập email");
-            return;
-        }
-        if (password == "") {
-            res.send("Vui lòng nhập password");
-            return;
-        }
+            if (!email) throw new Error("Vui lòng nhập email");
+            if (!password) throw new Error("Vui lòng nhập password");
 
-        // UserRepo.findByEmail(email)
-        //     .then(([loginUser]) => {
-        //         if (loginUser.length == 0) {
-        //             res.send("Email chưa đăng ký tài khoản");
-        //             return;
-        //         }
-        //         var user = new User(loginUser[0]);
-        //         if (user.password !== password) {
-        //             res.send("Mật khẩu không đúng");
-        //             return;
-        //         }
-        //         res.cookie("user", user, {
-        //             expires: new Date(Date.now() + 900000),
-        //         });
-        //         req.session.user = user;
-        //         res.send("");
-        //     })
-        //     .catch((err) => {
-        //         res.send("Error");
-        //     });
+            const user = await Users.findOne({ email });
+            if (!user) throw new Error("Email chưa tạo tài khoản");
+            else {
+                let sessionUser = user.toObject();
+                delete sessionUser.password;
+                req.session.user = sessionUser;
+                res.send("Đăng nhập thành công");
+            }
+        } catch (err) {
+            next(err);
+        }
     }
 
     //GET /login/logout
@@ -57,47 +43,29 @@ class AuthController {
     }
 
     //POST /register
-    postRegister(req, res, next) {
-        var email = req.body.email;
-        var password = req.body.password;
-        var confirmPassword = req.body.confirmPassword;
+    async postRegister(req, res, next) {
+        try {
+            let { email, password, confirmPassword } = req.body;
 
-        if (email === "") {
-            res.send("Vui lòng nhập email");
-            return;
-        }
-        if (password === "") {
-            res.send("Vui lòng nhập password");
-            return;
-        }
-        if (confirmPassword === "") {
-            res.send("Vui lòng nhập lại password");
-            return;
-        }
-        if (password != confirmPassword) {
-            res.send("Mật khẩu không khớp");
-            return;
-        }
+            if (!email) throw new Error("Vui lòng nhập email");
+            if (!password) throw new Error("Vui lòng nhập password");
+            if (!confirmPassword) throw new Error("Vui lòng nhập lại password");
+            if (password != confirmPassword)
+                throw new Error("Mật khẩu không khớp");
 
-        // UserRepo.findByEmail(email)
-        // .then(([user]) => {
-        //     if (user.length > 0){
-        //         res.send("Email đã đăng ký tài khoản!")
-        //         return
-        //     }
-        //     UserRepo.register(email, password)
-        //     UserRepo.findByEmail(email)
-        //         .then(([registerUser])=>{
-        //             if (registerUser.length == 0){
-        //                 res.send('Error')
-        //                 return
-        //             }
-        //             var loginUser = new User(registerUser[0])
-        //             req.session.user = loginUser
-        //             res.cookie('user', loginUser, { expires: new Date(Date.now() + 900000) })
-        //             res.send('')
-        //         })
-        // })
+            const user = await Users.findOne({ email });
+            if (user) throw new Error("Tài khoản đã tồn tại");
+            const salt = bcrypt.genSaltSync(10);
+            await Users.insertOne({
+                name: email.split("@")[0],
+                email,
+                password: bcrypt.hashSync(password, salt),
+            });
+
+            res.send("Đăng ký thành công");
+        } catch (err) {
+            next(err);
+        }
     }
 }
 

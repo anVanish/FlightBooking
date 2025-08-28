@@ -7,6 +7,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const mongodb = require("./config/db");
 const dotenv = require("dotenv");
+const { errorHandling } = require("./middlewares/errorHandling");
 
 const route = require("./routes");
 
@@ -52,6 +53,8 @@ app.use(bodyParser.json());
 
 //router
 route(app);
+
+app.use(errorHandling);
 
 app.listen(port, () =>
     console.log(`Web app listening at http://localhost:${port}/home`)

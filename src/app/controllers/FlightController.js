@@ -1,7 +1,4 @@
-const GeneralRepo = require("../repository/GeneralRepository");
-const FlightRepo = require("../repository/FligthRepository");
 const Flight = require("../models/FlightModel");
-const UserRepo = require("../repository/UserRepository");
 const User = require("../models/UserModel");
 
 class FlightController {

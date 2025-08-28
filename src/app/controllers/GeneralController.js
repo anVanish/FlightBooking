@@ -1,4 +1,3 @@
-const GeneralRepo = require("../repository/GeneralRepository");
 const User = require("../models/UserModel");
 
 class GeneralController {

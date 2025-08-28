@@ -1,11 +1,7 @@
-const GeneralRepo = require("../repository/GeneralRepository")
-
-
-class HomeController{
-
+class HomeController {
     //GET / | /home
-    index(res, req, next){
-        req.render('home')
+    index(res, req, next) {
+        req.render("home");
         // GeneralRepo.findPopBlog()
         //     .then(([results]) =>{
         //         var pops = results.map(item =>{
@@ -21,4 +17,4 @@ class HomeController{
     }
 }
 
-module.exports = new HomeController()
+module.exports = new HomeController();

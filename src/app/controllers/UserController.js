@@ -1,16 +1,9 @@
 const User = require("../models/UserModel");
-const FlightRepo = require("../repository/FligthRepository");
-const GeneralRepo = require("../repository/GeneralRepository");
-const UserRepo = require("../repository/UserRepository");
 
 class UserController {
     //GET /user
     user(req, res, next) {
-        if (!req.session.user && !req.cookies.user) {
-            res.redirect("/login");
-            return;
-        }
-        var name = req.cookies.user.user_name;
+        var name = req.session.user.name;
         // FlightRepo.findAllTicket(req.cookies.user.user_id)
         //     .then(([results]) =>{
         //         var tickets = results.map(item=>{
@@ -24,20 +17,17 @@ class UserController {
         //             tickets
         //         })
         //     })
-        // res.render('user', {
-        //     name
-        // })
+        res.render("user", {
+            name,
+        });
     }
 
     //Get /user/edit
     edit(req, res, next) {
-        if (!req.session.user && !req.cookies.user) {
-            res.redirect("../login");
-        }
-        var user = req.cookies.user;
-        const date = new Date(user.date_of_birth);
-        const formattedDate = date.toISOString().split("T")[0];
-        user.date_of_birth = formattedDate;
+        var user = req.session.user;
+        // const date = new Date(user.date_of_birth);
+        // const formattedDate = date.toISOString().split("T")[0];
+        // user.date_of_birth = formattedDate;
 
         res.render("editUser", {
             user,
