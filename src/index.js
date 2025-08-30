@@ -20,7 +20,7 @@ const app = express();
 mongodb.connect();
 
 //use morgan to log the request
-app.use(morgan("combined"));
+app.use(morgan("tiny"));
 
 //pulic
 app.use(express.static(path.join(__dirname, "public")));

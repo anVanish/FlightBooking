@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 class AuthController {
     //GET /login
     login(req, res, next) {
-        if (!req.session.user) res.render("login");
+        if (!req.session.user) res.render("login", { session: res.session });
         else res.redirect("/home");
     }
 
@@ -14,7 +14,11 @@ class AuthController {
             var email = req.body.email;
             var password = req.body.password;
 
-            if (!email) throw new Error("Vui lòng nhập email");
+            if (!email) {
+                throw new Error("Vui lòng nhập email");
+                // req.session.message = "Vui lòng nhập email";
+                // return res.redirect("back");
+            }
             if (!password) throw new Error("Vui lòng nhập password");
 
             const user = await Users.findOne({ email });
@@ -23,7 +27,7 @@ class AuthController {
                 let sessionUser = user.toObject();
                 delete sessionUser.password;
                 req.session.user = sessionUser;
-                res.send("Đăng nhập thành công");
+                res.send({ message: "Đăng nhập thành công" });
             }
         } catch (err) {
             next(err);

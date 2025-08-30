@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row fullscreen align-items-center justify-content-between">
             <div class="col-lg-6 col-md-6 banner-left">
-                <h6 class="text-white">Khám phá Việt Nam</h6>
+                <h6 class="text-white">Khám phá Việt Nam {{session.message}}</h6>
                 <h1 class="text-white">Chào mừng quay lại</h1>
                 <p class="text-white">
                     Đăng nhập vào hệ thống để khám phá thêm nhiều tính năng, đặt chuyến bay cho chuyến du đi của bạn    
@@ -33,7 +33,6 @@
 </section>
 <!-- End banner Area -->		
 
-
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         $('#btn-login').on('click', function(event){
@@ -43,11 +42,14 @@
                 method: 'post',
                 data: $('#form-login').serialize(),
                 success: function (res) {
-                    if (res) {
-                        alert(res)
+                    if (res.err) {
+                        showToast(res.message, "error");
                     }
                     else {
-                        window.location.href = '/home'
+                        showToast(res.message);
+                        setTimeout(() => {
+                            window.location.href = '/home'; 
+                        }, 500);
                     }
                 }
             })

@@ -39,12 +39,52 @@
 			<link rel="stylesheet" href="../css/animate.min.css">
 			<link rel="stylesheet" href="../css/owl.carousel.css">				
 			<link rel="stylesheet" href="../css/main.css">
+			<link rel="stylesheet" href="../css/toast.css">
+			
 		</head>
         <body>
+			
             {{>header}}
             {{{body}}}
             {{>footer}}
+			
+			<div id="toast" class="toast hidden">
+				<span id="toast-message">Message</span>
+			</div>
+			<script>
+				document.addEventListener("DOMContentLoaded", function () {
+					let toastTimeout;
 
+					window.showToast = function (message, type = "success") {
+						const $toast = $("#toast");
+
+						// Close toast if it's currently open
+						if (toastTimeout) {
+							clearTimeout(toastTimeout);
+							$toast.attr("class", `toast hidden ${type}`);
+
+							setTimeout(() => {
+								displayToast(message, type);
+							}, 300);
+						} else {
+							displayToast(message, type);
+						}
+					}
+
+					function displayToast(message, type) {
+						const $toast = $("#toast");
+						const $toastMessage = $("#toast-message");
+
+						$toastMessage.text(message || "Thông báo");
+						$toast.attr("class", `toast visible ${type}`);
+
+						toastTimeout = setTimeout(() => {
+							$toast.attr("class", `toast hidden ${type}`);
+							toastTimeout = null;
+						}, 2000);
+					}
+				});
+			</script>
            	<script src="js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="js/popper.min.js"></script>
 			<script src="js/vendor/bootstrap.min.js"></script>			
