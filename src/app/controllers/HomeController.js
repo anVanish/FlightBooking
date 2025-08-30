@@ -1,7 +1,10 @@
+const Airports = require("../models/AirportModel");
+
 class HomeController {
     //GET / | /home
-    index(res, req, next) {
-        req.render("home");
+    async index(res, req, next) {
+        const airports = await Airports.find({});
+        req.render("home", { airports: airports.map((a) => a.toObject()) });
         // GeneralRepo.findPopBlog()
         //     .then(([results]) =>{
         //         var pops = results.map(item =>{

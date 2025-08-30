@@ -37,10 +37,10 @@
                         <tbody class="align-middle">
                             <tr>
                                 <th></th>
-                                <th class="text-primary higher-font-size">{{this.depature_time}}:00</th>
+                                <th class="text-primary higher-font-size">{{this.departureDate}}</th>
                                 <th></th>
-                                <th class="text-primary higher-font-size">{{this.arrival_time}}:00</th>
-                                <th>{{this.flight_name}}</th>
+                                <th class="text-primary higher-font-size">{{this.arrivalDate}}</th>
+                                <th>{{this.brand}}</th>
                                 <th></th>
                             </tr>
                             <tr>
@@ -49,18 +49,18 @@
                                     <img src="https://seekvectorlogo.com/wp-content/uploads/2022/01/vietnam-airlines-vector-logo-2022-small.png" alt=""
                                     class="mr-3" style="width: 7rem; height: 7rem;">
                                 </td>
-                                <td class="align-middle higher-font-size bold-font-weight">{{this.place_from.place_name}} ({{this.place_from.place_code}})</td>
+                                <td class="align-middle higher-font-size bold-font-weight">{{this.from.city}} ({{this.from.code}})</td>
                                 <td class="align-middle higher-font-size bold-font-weight">
                                     <span class="lnr lnr-arrow-right"></span> 
                                 </td>
-                                <td class="align-middle higher-font-size bold-font-weight">{{this.place_to.place_name}} ({{this.place_to.place_code}})</td>
-                                <td class="align-middle higher-font-size"><div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>{{this.plane_name}}</td>
+                                <td class="align-middle higher-font-size bold-font-weight">{{this.to.city}} ({{this.to.code}})</td>
+                                <td class="align-middle higher-font-size"><div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>{{this.planeName}}</td>
                                 <td class="align-middle">
                                     <div class="button-group-area">
                                         <form action="/passenger" method="post">
-                                            <input type="text" name="flight_id" value="{{this.flight_id}}" style="display: none">
+                                            <input type="text" name="flight_id" value="{{this._id}}" style="display: none">
                                             <button type="submit" class="genric-btn primary radius" style="font-size: 1rem;">
-                                                {{this.price}} VND
+                                                {{this.price.standard}} VND
                                             </button>
                                         </form>
                                     </div>

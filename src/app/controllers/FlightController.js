@@ -1,44 +1,40 @@
-const Flight = require("../models/FlightModel");
-const User = require("../models/UserModel");
+const Flights = require("../models/FlightModel");
+const Users = require("../models/UserModel");
 
 class FlightController {
-    //POST /fligth/check
+    //POST /flight/check
     check(req, res, next) {
-        var from = req.body.from;
-        var to = req.body.to;
-        var startDate = req.body.start;
-        var returnDate = req.body.return;
-        var members = req.body.members;
-        var oneway = req.body.oneway || "off";
-        var message = "";
-        if (from === "Từ") message = "Vui lòng chọn điểm đi";
-        else if (to === "Đến") message = "Vui lòng chọn điểm đến";
-        else if (startDate === "") message = "Vui lòng chọn ngày khởi hành";
-        else if (members === "") message = "Vui lòng chọn số lượng hành khách";
-        else if (oneway !== "on" && returnDate === "")
-            message = "Vui lòng chọn ngày về";
-        else if (from === to) message = "Điểm đến và điểm đi không được trùng";
-        else if (new Date(startDate) - 1 <= Date.now())
-            message = "Ngày không hợp lệ";
-        else if (new Date(startDate) > new Date(returnDate))
-            message = "Ngày về phải sau ngày khởi hành";
+        let { from, to, startDate, returnDate, members, oneWay } = req.body;
 
-        res.send(message);
+        if (!from) throw new Error("Vui lòng chọn điểm đi");
+        else if (!to) throw new Error("Vui lòng chọn điểm đến");
+        else if (!startDate) throw new Error("Vui lòng chọn ngày khởi hành");
+        else if (!members || members <= 0)
+            throw new Error("Số lượng hành khách không hợp lệ");
+        else if (!oneWay && !returnDate)
+            throw new Error("Vui lòng chọn ngày về");
+        else if (from === to)
+            throw new Error("Điểm đến và điểm đi không được trùng");
+        else if (new Date(startDate) - 1 <= Date.now())
+            throw new Error("Ngày không hợp lệ");
+        else if (new Date(startDate) > new Date(returnDate))
+            throw new Error("Ngày về phải sau ngày khởi hành");
+
+        res.send("Thanh cong");
     }
 
     //POST /flight
-    search(req, res, next) {
-        var from = req.body.from;
-        var to = req.body.to;
-        var startDate = req.body.start;
-        startDate = startDate.split("/");
-        var formattedDate =
-            startDate[2] + "-" + startDate[0] + "-" + startDate[1];
-        var returnDate = req.body.return;
-        var members = req.body.members;
-        var oneway = req.body.oneway || "off";
-
+    async search(req, res, next) {
+        let { from, to, startDate, returnDate, members, oneWay } = req.body;
+        // startDate = startDate.split("/");
+        // var formattedDate =
+        //     startDate[2] + "-" + startDate[0] + "-" + startDate[1];
         req.session.members = members;
+
+        const flights = await Flights.findFlightsByDate(from, to, startDate);
+        if (!flights) return res.render("flight", { notFound: true });
+
+        res.render("flight", { flights: flights.map((f) => f.toObject()) });
 
         // Promise.all([GeneralRepo.findPlaceByCode(from), GeneralRepo.findPlaceByCode(to)])
         //     .then((result) => {

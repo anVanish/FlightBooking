@@ -22,6 +22,8 @@ class GeneralController {
         //             pops
         //         })
         //     })
+
+        res.render("blog");
     }
 
     //GET /blog/:id
