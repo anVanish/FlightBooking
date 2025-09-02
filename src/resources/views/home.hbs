@@ -22,7 +22,7 @@
           >
             <form class="form-wrap" id="form-search" method="POST" action="/flight">
               <!-- From -->
-              <div class="input-group-icon mt-10 form-control py-0">
+              <div class="input-group-icon mt-10 form-control py-0" id="select-from-container">
                 <div class="form-select form-select-from" id="default-select">
                   <select name="from" id="select-from">
                     <option>Từ</option>
@@ -33,7 +33,7 @@
                 </div>
               </div>
               <!-- To -->
-              <div class="input-group-icon mt-10 form-control py-0">
+              <div class="input-group-icon mt-10 form-control py-0" id="select-to-container">
                 <div class="form-select form-select-to" id="default-select">
                   <select name="to" id="select-to">
                     <option>Đến</option>
@@ -106,45 +106,23 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4">
-        <div class="single-destination relative">
-          <div class="thumb relative">
-            <div class="overlay overlay-bg"></div>
-            <img class="img-fluid" src="img/d1.jpg" alt="" />
-          </div>
-          <div class="desc">
-            <a href="#" class="price-btn">Đặt vé</a>
-            <h4>Hà Nội đi Nha Trang</h4>
-            <p>12/04/2023</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="single-destination relative">
-          <div class="thumb relative">
-            <div class="overlay overlay-bg"></div>
-            <img class="img-fluid" src="img/d2.jpg" alt="" />
-          </div>
-          <div class="desc">
-            <a href="#" class="price-btn">Đặt vé</a>
-            <h4>Đà Nẵng đi TP.Hồ Chí Minh</h4>
-            <p>16/02/2023</p>
+      {{#each popularDestinations}}
+        <div class="col-lg-4">
+          <div class="single-destination relative">
+            <div class="thumb relative">
+              <div class="overlay overlay-bg"></div>
+              <img class="img-fluid" src="img/d{{this.i}}.jpg" alt="" />
+            </div>
+            <div class="desc">
+              <a href="#" id="btn-destination-{{this.i}}" class="price-btn">Đặt vé</a>
+              <h4>{{this.from.city}} đi {{this.to.city  }}</h4>
+              {{!-- <p>2025</p> --}}
+              <input type="text" id="from-{{this.i}}" style="display: none;" value="{{this.from._id}}">
+              <input type="text" id="to-{{this.i}}" style="display: none;" value="{{this.to._id}}">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="single-destination relative">
-          <div class="thumb relative">
-            <div class="overlay overlay-bg"></div>
-            <img class="img-fluid" src="img/d3.jpg" alt="" />
-          </div>
-          <div class="desc">
-            <a href="#" class="price-btn">Đặt vé</a>
-            <h4>Huế đi Hà Nội</h4>
-            <p>16/04/2023</p>
-          </div>
-        </div>
-      </div>
+      {{/each}}
     </div>
   </div>
 </section>
@@ -185,10 +163,10 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-      $('input[name=oneWay]').prop('checked', true)
-
       var oneWay = document.getElementById('btn-one-way')
       var roundTrip = document.getElementById('btn-round-trip')
+
+      $('input[name=oneWay]').prop('checked', true)
       $('input[name="returnDate"]').css('display', 'none')
 
       oneWay.addEventListener('click', (e)=>{
@@ -199,15 +177,26 @@
         roundTrip.classList.add('success-border')
         $('input[name="returnDate"]').css('display', 'none').val('')
         $('input[name=oneWay]').prop('checked', true)
-      })
+      });
       roundTrip.addEventListener('click', ()=>{
-          roundTrip.classList.add('success')
-          roundTrip.classList.remove('success-border')
-          oneWay.classList.remove('success')
-          oneWay.classList.add('success-border')
-          $('input[name="returnDate"]').css('display', 'block')
-          $('input[name=oneWay]').prop('checked', false)
-      })
+        roundTrip.classList.add('success')
+        roundTrip.classList.remove('success-border')
+        oneWay.classList.remove('success')
+        oneWay.classList.add('success-border')
+        $('input[name="returnDate"]').css('display', 'block')
+        $('input[name=oneWay]').prop('checked', false)
+      });
+
+      //Ha Noi to TP.HCM
+      for (let i = 1; i <= 3; i++){
+        $(`#btn-destination-${i}`).on('click', function(e){
+          const fromId = $(`#from-${i}`).val();
+          const toId = $(`#to-${i}`).val();
+          $("#select-from").val(fromId).niceSelect('update')
+          $("#select-to").val(toId).niceSelect('update')
+        })
+      }
+     
 
       $('#find-flight').on('click', function(e){
         e.preventDefault()
