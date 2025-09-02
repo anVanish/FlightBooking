@@ -29,7 +29,8 @@ class FlightController {
         req.session.members = members;
 
         const flights = await Flights.findFlightsByDate(from, to, startDate);
-        if (!flights) return res.render("flight", { notFound: true });
+        if (!flights || flights.length === 0)
+            return res.render("flight", { notFound: true });
 
         if (!oneWay)
             req.session.return = {
@@ -39,53 +40,6 @@ class FlightController {
             };
 
         res.render("flight", { flights: flights.map((f) => f.toObject()) });
-    }
-
-    //POST /flight/booking
-    book(req, res, next) {
-        // var members = req.session.members || -1;
-        // if (members == -1) {
-        //     res.redirect("../home");
-        //     return;
-        // }
-        // var flight = req.session.flight;
-        // var total = req.session.total;
-        // var passengers = req.session.passengers;
-        // var seatIds = req.session.seatIds;
-        // transaction
-        // save passengers
-        // save passenger_booking
-        // passengers.forEach((item) => {
-        //     UserRepo.saveUser(new User(item));
-        //     UserRepo.getNewUser().then(([[results]]) => {
-        //         GeneralRepo.userBooking(results.user_id, flight.flight_id);
-        //     });
-        // });
-        // //save seat booking
-        // seatIds.forEach((item) => {
-        //     GeneralRepo.seatBooking(item, flight.flight_id);
-        // });
-        //save ticket
-        // const bookAt = new Date();
-        // const formattedDate = bookAt.toISOString().slice(0, 10);
-        // let code = "";
-        // const characters =
-        //     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        // const charactersLength = characters.length;
-        // for (let i = 0; i < 10; i++) {
-        //     code += characters.charAt(
-        //         Math.floor(Math.random() * charactersLength)
-        //     );
-        // }
-        // GeneralRepo.ticketBooking(
-        //     req.cookies.user.user_id,
-        //     flight.flight_id,
-        //     total,
-        //     members,
-        //     formattedDate,
-        //     code
-        // );
-        // res.redirect("../user");
     }
 }
 

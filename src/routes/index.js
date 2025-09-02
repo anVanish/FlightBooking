@@ -6,8 +6,6 @@ const loginRouter = require("./routers/LoginRouter");
 const registerRouter = require("./routers/RegisterRouter");
 const flightRouter = require("./routers/FlightRouter");
 const passengerRouter = require("./routers/PassengerRouter");
-const seatRouter = require("./routers/SeatRouter");
-const checkRouter = require("./routers/CheckoutRouter");
 const ticketRouter = require("./routers/TicketRouter");
 const { authToken } = require("../middlewares/authentication");
 
@@ -20,8 +18,6 @@ function route(app) {
     app.use("/register", registerRouter);
     app.use("/flight", flightRouter);
     app.use("/passenger", passengerRouter);
-    app.use("/seat", seatRouter);
-    app.use("/checkout", checkRouter);
     app.use("/ticket", ticketRouter);
 
     app.use("/", homeRouter);

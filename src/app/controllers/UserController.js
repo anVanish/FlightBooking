@@ -11,7 +11,8 @@ class UserController {
             .populate({
                 path: "flightId",
                 populate: [{ path: "from" }, { path: "to" }],
-            });
+            })
+            .sort({ createdAt: -1 });
 
         res.render("user", {
             user,

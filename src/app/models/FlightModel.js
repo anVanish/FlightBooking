@@ -27,7 +27,8 @@ Flights.statics.findFlightsByDate = function (from, to, date) {
         departureDate: { $gt: startDay, $lt: endDay },
     })
         .populate("from")
-        .populate("to");
+        .populate("to")
+        .sort({ price: 1 });
 };
 
 module.exports = mongoose.model("flights", Flights);

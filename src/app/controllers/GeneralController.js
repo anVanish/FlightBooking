@@ -103,25 +103,6 @@ class GeneralController {
         //     });
         // });
     }
-
-    //POST /checkout
-    checkout(req, res, next) {
-        var members = req.session.members || -1;
-        if (members == -1) {
-            res.redirect("back");
-            return;
-        }
-        var flight = req.session.flight;
-
-        var seatIds = req.body.seat.split(";");
-        seatIds.pop();
-        req.session.seatIds = seatIds;
-
-        res.render("checkout", {
-            flight,
-            members,
-        });
-    }
 }
 
 module.exports = new GeneralController();

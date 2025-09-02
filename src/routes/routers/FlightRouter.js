@@ -1,10 +1,9 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const flightController = require("../../app/controllers/FlightController")
+const flightController = require("../../app/controllers/FlightController");
 
-router.post('/book', flightController.book)
-router.post('/check', flightController.check)
-router.post('/', flightController.search)
+router.post("/check", flightController.check);
+router.post("/", flightController.search);
 
-module.exports = router
+module.exports = router;
