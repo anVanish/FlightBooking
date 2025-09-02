@@ -37,16 +37,16 @@
                         <tbody class="align-middle">
                             <tr>
                                 <th></th>
-                                <th class="text-primary higher-font-size">{{this.departureDate}}</th>
+                                <th class="text-primary higher-font-size">{{formatDateTime this.departureDate}}</th>
                                 <th></th>
-                                <th class="text-primary higher-font-size">{{this.arrivalDate}}</th>
+                                <th class="text-primary higher-font-size">{{formatDateTime this.arrivalDate}}</th>
                                 <th>{{this.brand}}</th>
                                 <th></th>
                             </tr>
                             <tr>
                                 <td class="align-
                                 middle text-left flex max-w-xl" style="justify-content: right;">
-                                    <img src="https://seekvectorlogo.com/wp-content/uploads/2022/01/vietnam-airlines-vector-logo-2022-small.png" alt=""
+                                    <img src="https://logos-world.net/wp-content/uploads/2023/01/Vietnam-Airlines-Logo-2002.png" alt=""
                                     class="mr-3" style="width: 7rem; height: 7rem;">
                                 </td>
                                 <td class="align-middle higher-font-size bold-font-weight">{{this.from.city}} ({{this.from.code}})</td>
@@ -57,10 +57,10 @@
                                 <td class="align-middle higher-font-size"><div class="icon"><i class="fa fa-plane" aria-hidden="true"></i></div>{{this.planeName}}</td>
                                 <td class="align-middle">
                                     <div class="button-group-area">
-                                        <form action="/passenger" method="post">
-                                            <input type="text" name="flight_id" value="{{this._id}}" style="display: none">
-                                            <button type="submit" class="genric-btn primary radius" style="font-size: 1rem;">
-                                                {{this.price.standard}} VND
+                                        <form action="/passenger" id="form-flight" method="POST">
+                                            <input type="text" name="flightId" value="{{this._id}}" style="display: none">
+                                            <button type="submit" id="btn-continue" class="genric-btn primary radius" style="font-size: 1rem;">
+                                                {{formatPrice this.price}} VND
                                             </button>
                                         </form>
                                     </div>
@@ -78,3 +78,26 @@
     </div>
 </div>
 <!-- User Info End -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        $('#btn-continue').on('click', function(event){
+            event.preventDefault()
+            $.ajax({
+                url: '/passenger/check',
+                method: 'post',
+                success: function (res) {
+                    if (res.err) {
+                        showToast(res.message, "error");
+                        setTimeout(() => {
+                            window.location.href = "/login?redirect=true";
+                        }, 1000)
+                    }
+                    else {
+                        $('#form-flight').submit();
+                    }
+                }
+            })
+        })
+    })
+</script>

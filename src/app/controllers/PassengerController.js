@@ -1,45 +1,82 @@
-const Flight = require("../models/FlightModel");
+const Flights = require("../models/FlightModel");
+const Passengers = require("../models/PassengerModel");
 
 class PassengerController {
     //POST /passenger/check
-    check(req, res, next) {}
+    check(req, res, next) {
+        if (!req.session.user)
+            throw new Error("Vui lòng đăng nhập để tiếp tục");
+        res.send("Hợp lệ");
+    }
 
     //POST /passenger
-    show(req, res, next) {
-        if (!req.cookies.user) {
-            res.redirect("login");
-            return;
+    async show(req, res, next) {
+        try {
+            var { members } = req.session;
+            let { flightId } = req.body;
+
+            if (!members) return res.redirect("home");
+            var memberArr = [];
+            for (var i = 0; i < members; i++) memberArr.push(0);
+
+            let flight = await Flights.findOne({ _id: flightId })
+                .populate("from")
+                .populate("to");
+            const total = flight.price * members;
+
+            req.session.flight = flight.toObject();
+
+            res.render("passengers", {
+                flight: flight.toObject(),
+                members,
+                memberArr,
+                total,
+            });
+        } catch (err) {
+            next(err);
         }
+    }
 
-        var members = req.session.members || -1;
-        if (members == -1) {
-            res.redirect("home");
-            return;
+    //POST /save
+    async save(req, res, next) {
+        try {
+            const { members } = req.session;
+            const reqBody = req.body;
+            const passengers = [];
+            if (members === 1) {
+                let existPassenger = await Passengers.findOne({
+                    identification: req.body.identification,
+                });
+                if (existPassenger) passengers.push(existPassenger);
+                else {
+                    let passenger = new Passengers(req.body);
+                    await passenger.save();
+                    passengers.push(passenger);
+                }
+            } else {
+                for (let i = 0; i < members; i++) {
+                    let passenger = {};
+                    Object.keys(reqBody).forEach((key) => {
+                        passenger[key] = reqBody[key][i];
+                    });
+                    let existPassenger = await Passengers.findOne({
+                        identification: passenger.identification,
+                    });
+
+                    if (existPassenger) passengers.push(existPassenger);
+                    else {
+                        passenger = new Passengers(passenger);
+                        await passenger.save();
+                        passengers.push(passenger);
+                    }
+                }
+            }
+
+            req.session.passengers = passengers;
+            res.send("success");
+        } catch (err) {
+            next(err);
         }
-        var memberArr = [];
-        for (var i = 0; i < members; i++) memberArr.push(0);
-        var flight_id = req.body.flight_id;
-        // FlightRepo.findById(flight_id)
-        //     .then(([[result]]) =>{
-        //         Promise.all([GeneralRepo.findPlaceById(result.place_from_id),GeneralRepo.findPlaceById(result.place_to_id)])
-        //             .then((result1) => {
-        //                 var place_from = result1[0][0][0]
-        //                 var place_to = result1[1][0][0]
-        //                 var flight = new Flight({...result, place_from, place_to})
-        //                 var total = members * flight.price
-        //                 //save to session
-        //                 req.session.flight = flight
-        //                 req.session.total = total
-
-        //                 res.render('passengers', {
-        //                     flight,
-        //                     memberArr,
-        //                     members,
-        //                     total
-        //                 })
-        //             })
-
-        //     })
     }
 }
 

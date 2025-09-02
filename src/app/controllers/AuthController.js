@@ -11,14 +11,9 @@ class AuthController {
     //POST /login
     async postLogin(req, res, next) {
         try {
-            var email = req.body.email;
-            var password = req.body.password;
+            let { email, password } = req.body;
 
-            if (!email) {
-                throw new Error("Vui lòng nhập email");
-                // req.session.message = "Vui lòng nhập email";
-                // return res.redirect("back");
-            }
+            if (!email) throw new Error("Vui lòng nhập email");
             if (!password) throw new Error("Vui lòng nhập password");
 
             const user = await Users.findOne({ email });
@@ -61,7 +56,9 @@ class AuthController {
             if (user) throw new Error("Tài khoản đã tồn tại");
             const salt = bcrypt.genSaltSync(10);
             await Users.insertOne({
-                name: email.split("@")[0],
+                name: email
+                    .split("@")[0]
+                    .replace(/\b\w/g, (c) => c.toUpperCase()),
                 email,
                 password: bcrypt.hashSync(password, salt),
             });

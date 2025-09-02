@@ -35,19 +35,19 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form class="form-area contact-form text-right" id="form-pass" action="/seat" method="post">
+                                    <form id="form-passenger" class="form-area contact-form text-right" id="form-pass" action="/ticket/book" method="post">
                                         {{#each memberArr}}
                                         <h3 class="text-primary text-left mb-20">Thông tin hành khách</h3>	
                                         <div class="row">
                                             <div class="col-lg-6 form-group">
-                                                <input name="user_name" placeholder="Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên'" class="common-input mb-20 form-control" required="" type="text">
+                                                <input name="name" placeholder="Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên'" class="common-input mb-20 form-control" required type="text">
                                             
-                                                <input name="email" placeholder="Email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="common-input mb-20 form-control" required="" type="email">
+                                                <input name="identification" placeholder="CMND/CCCD" onfocus="this.placeholder = ''" onblur="this.placeholder = 'CMND/CCCD'" class="common-input mb-20 form-control" required type="text">
         
-                                                <input name="date_of_birth" type="date" placeholder="Ngày sinh" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ngày sinh'" class="common-input mb-20 form-control" required="" type="text">
+                                                <input name="birth" type="date" placeholder="Ngày sinh" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ngày sinh'" class="common-input mb-20 form-control" required type="text">
                                             </div>
                                             <div class="col-lg-6 form-group">
-                                                <input name="phone_number" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" class="common-input mb-20 form-control" required="" type="text">                                                        
+                                                <input name="phone" placeholder="Số điện thoại" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại'" class="common-input mb-20 form-control" required type="text">                                                        
                                                 <div class="input-group-icon mt-10 form-control">
                                                     <div class="form-select" id="default-select">
                                                         <select name="gender">
@@ -62,7 +62,7 @@
                                         {{/each}}
                                         <div class="col-lg-12">
                                             <div class="alert-msg" style="text-align: left;"></div>
-                                            <button class="genric-btn primary" type="submit" style="float: right;">Tiếp tục</button>											
+                                            <button id="btn-passenger" class="genric-btn primary" type="submit" style="float: right;">Tiếp tục</button>											
                                         </div>
                                     </form>
                                 </div>
@@ -87,23 +87,23 @@
                             <tr>
                                 <td class="align-middle text-left">
                                     <i class="fa fa-plane pr-2" aria-hidden="true"></i>
-                                    {{flight.place_from.place_code}} <span class="lnr lnr-arrow-right"></span> {{flight.place_to.place_code}}
+                                    {{flight.from.code}} <span class="lnr lnr-arrow-right"></span> {{flight.to.code}}
                                 </td>
-                                <td class="align-middle">{{flight.price}} VND</td>
+                                <td class="align-middle">{{formatPrice flight.price}} VND</td>
                             </tr>
                             <tr>
-                                <td class="align-middle text-left" colspan="2">Khởi hành {{flight.depature_time}}:00</td>
+                                <td class="align-middle text-left" colspan="2">Khởi hành {{formatDate flight.departureTime}}</td>
                             </tr>
                             <tr>
                                 <td class="align-middle text-left" colspan="2">
-                                    {{flight.place_from.place_name}} <i class="fa fa-plane pr-2 pl-2" aria-hidden="true"></i> {{flight.place_to.place_name}}
-                                    <br>{{flight.flight_name}} - {{flight.plane_name}}
+                                    {{flight.from.city}} <i class="fa fa-plane pr-2 pl-2" aria-hidden="true"></i> {{flight.to.city}}
+                                    <br>{{flight.brand}} - {{flight.planeName}}
                                     <br>Hành khách x{{members}}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="align-middle text-left text-primary" style="font-size: 1.2rem;">Tổng tiền</td>
-                                <td class="align-middle" style="font-size: 1.2rem;">{{total}} VND</td>
+                                <td class="align-middle" style="font-size: 1.2rem;">{{formatPrice total}} VND</td>
                             </tr>
                         </tbody>
                     </table>
@@ -115,3 +115,24 @@
     </div>
 </div>
 <!-- User Info End -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        $('#btn-passenger').on('click', function(event){
+            event.preventDefault()
+            $.ajax({
+                url: '/passenger/save',
+                method: 'post',
+                data: $("#form-passenger").serialize(),
+                success: function (res) {
+                    if (res.err) {
+                        showToast(res.message, "error");
+                    }
+                    else {
+                        window.location.href = "/ticket/checkout"
+                    }
+                }
+            })
+        })
+    })
+</script>

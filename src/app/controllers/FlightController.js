@@ -26,50 +26,32 @@ class FlightController {
     //POST /flight
     async search(req, res, next) {
         let { from, to, startDate, returnDate, members, oneWay } = req.body;
-        // startDate = startDate.split("/");
-        // var formattedDate =
-        //     startDate[2] + "-" + startDate[0] + "-" + startDate[1];
         req.session.members = members;
 
         const flights = await Flights.findFlightsByDate(from, to, startDate);
         if (!flights) return res.render("flight", { notFound: true });
 
-        res.render("flight", { flights: flights.map((f) => f.toObject()) });
+        if (!oneWay)
+            req.session.return = {
+                from: to,
+                to: from,
+                returnDate,
+            };
 
-        // Promise.all([GeneralRepo.findPlaceByCode(from), GeneralRepo.findPlaceByCode(to)])
-        //     .then((result) => {
-        //         var place_from = result[0][0][0]
-        //         var place_to = result[1][0][0]
-        //         FlightRepo.findFlight(place_from.place_id, place_to.place_id, formattedDate)
-        //             .then(([result]) =>{
-        //                 if (result.length == 0){
-        //                     res.render('flight', {
-        //                         notFound: true
-        //                     })
-        //                     return
-        //                 }
-        //                 var flights = result.map(function(flight){
-        //                     return new Flight({...flight, place_from, place_to})
-        //                 })
-        //                 res.render('flight', {
-        //                     flights
-        //                 })
-        //             })
-        //     })
+        res.render("flight", { flights: flights.map((f) => f.toObject()) });
     }
 
     //POST /flight/booking
     book(req, res, next) {
-        var members = req.session.members || -1;
-        if (members == -1) {
-            res.redirect("../home");
-            return;
-        }
-        var flight = req.session.flight;
-        var total = req.session.total;
-        var passengers = req.session.passengers;
-        var seatIds = req.session.seatIds;
-
+        // var members = req.session.members || -1;
+        // if (members == -1) {
+        //     res.redirect("../home");
+        //     return;
+        // }
+        // var flight = req.session.flight;
+        // var total = req.session.total;
+        // var passengers = req.session.passengers;
+        // var seatIds = req.session.seatIds;
         // transaction
         // save passengers
         // save passenger_booking
@@ -84,19 +66,17 @@ class FlightController {
         //     GeneralRepo.seatBooking(item, flight.flight_id);
         // });
         //save ticket
-        const bookAt = new Date();
-        const formattedDate = bookAt.toISOString().slice(0, 10);
-        let code = "";
-        const characters =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        const charactersLength = characters.length;
-
-        for (let i = 0; i < 10; i++) {
-            code += characters.charAt(
-                Math.floor(Math.random() * charactersLength)
-            );
-        }
-
+        // const bookAt = new Date();
+        // const formattedDate = bookAt.toISOString().slice(0, 10);
+        // let code = "";
+        // const characters =
+        //     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        // const charactersLength = characters.length;
+        // for (let i = 0; i < 10; i++) {
+        //     code += characters.charAt(
+        //         Math.floor(Math.random() * charactersLength)
+        //     );
+        // }
         // GeneralRepo.ticketBooking(
         //     req.cookies.user.user_id,
         //     flight.flight_id,
@@ -105,7 +85,7 @@ class FlightController {
         //     formattedDate,
         //     code
         // );
-        res.redirect("../user");
+        // res.redirect("../user");
     }
 }
 

@@ -1,5 +1,5 @@
 exports.errorHandling = (err, req, res, next) => {
-    // console.error(err);
+    console.error(err);
 
     res.send({
         err: true,

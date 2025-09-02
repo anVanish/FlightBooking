@@ -1,24 +1,24 @@
-const User = require("../models/UserModel");
+const Users = require("../models/UserModel");
+const Tickets = require("../models/TicketModel");
+const Airports = require("../models/AirportModel");
 
 class UserController {
     //GET /user
-    user(req, res, next) {
-        var name = req.session.user.name;
-        // FlightRepo.findAllTicket(req.cookies.user.user_id)
-        //     .then(([results]) =>{
-        //         var tickets = results.map(item=>{
-        //             return {
-        //                 ...item,
-        //                 'bookAt': item.bookAt.toISOString().split('T')[0]
-        //             }
-        //         })
-        //         res.render('user', {
-        //             name,
-        //             tickets
-        //         })
-        //     })
+    async user(req, res, next) {
+        let user = req.session.user;
+
+        const tickets = await Tickets.find({ userId: user._id })
+            .populate("passengers._id")
+            .populate({
+                path: "flightId",
+                populate: [{ path: "from" }, { path: "to" }],
+            });
+
+        console.log(tickets);
+
         res.render("user", {
-            name,
+            user,
+            tickets: tickets.map((t) => t.toObject()),
         });
     }
 

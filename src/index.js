@@ -22,7 +22,7 @@ mongodb.connect();
 //use morgan to log the request
 app.use(morgan("tiny"));
 
-//pulic
+//public
 app.use(express.static(path.join(__dirname, "public")));
 
 //session
@@ -42,6 +42,27 @@ app.engine(
     "hbs",
     hbs.engine({
         extname: ".hbs",
+        helpers: {
+            formatDate(date) {
+                return new Date(date).toLocaleDateString("vi-VN");
+            },
+            formatTime(date) {
+                return new Date(date).toLocaleTimeString("vi-VN");
+            },
+            formatDateTime(date) {
+                return new Date(date).toLocaleString("vi-VN", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                });
+            },
+            formatPrice(price) {
+                if (!price) return "0";
+                return new Number(price).toLocaleString("en-US");
+            },
+        },
     })
 );
 app.set("view engine", "hbs");

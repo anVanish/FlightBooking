@@ -35,6 +35,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
+        const params = new URLSearchParams(window.location.search);
+        const redirect = params.get("redirect");
+
         $('#btn-login').on('click', function(event){
             event.preventDefault()
             $.ajax({
@@ -48,7 +51,11 @@
                     else {
                         showToast(res.message);
                         setTimeout(() => {
-                            window.location.href = '/home'; 
+                            if (redirect === "true") {
+                                window.history.back();
+                            } else {
+                                window.location.href = '/home'; 
+                            }
                         }, 500);
                     }
                 }

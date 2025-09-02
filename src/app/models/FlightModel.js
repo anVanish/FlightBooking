@@ -9,10 +9,7 @@ const Flights = new mongoose.Schema(
         to: { type: ObjectId, ref: "airports" },
         departureDate: { type: Date, required: true },
         arrivalDate: { type: Date, required: true },
-        price: {
-            standard: { type: Number, required: true },
-            business: { type: Number, required: true },
-        },
+        price: { type: Number, required: true },
     },
     {
         timestamps: true,

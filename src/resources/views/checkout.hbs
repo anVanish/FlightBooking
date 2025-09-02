@@ -34,8 +34,8 @@
                     <h3 class="text-primary text-center">Xác nhận Đặt vé</h3>
                     <div class="col-lg-12">
                         <div class="alert-msg" style="text-align: left;"></div>
-                        <form action="/flight/book" method="post">
-                            <button type="submit" id="btn-continue" class="genric-btn primary" style="float: right;">Đặt vé</button>											
+                        <form id="form-book" action="/flight/book" method="post">
+                            <button id="btn-book" type="submit" id="btn-continue" class="genric-btn primary" style="float: right;">Đặt vé</button>											
                         </form>
                     </div>
                 </div>
@@ -56,23 +56,23 @@
                             <tr>
                                 <td class="align-middle text-left">
                                     <i class="fa fa-plane pr-2" aria-hidden="true"></i>
-                                    {{flight.place_from.place_code}} <span class="lnr lnr-arrow-right"></span> {{flight.place_to.place_code}}
+                                    {{flight.from.code}} <span class="lnr lnr-arrow-right"></span> {{flight.to.code}}
                                 </td>
-                                <td class="align-middle">{{flight.price}} VND</td>
+                                <td class="align-middle">{{formatPrice flight.price}} VND</td>
                             </tr>
                             <tr>
-                                <td class="align-middle text-left" colspan="2">Khởi hành {{flight.depature_time}}:00</td>
+                                <td class="align-middle text-left" colspan="2">Khởi hành {{formatDateTime flight.departureDate}}</td>
                             </tr>
                             <tr>
                                 <td class="align-middle text-left" colspan="2">
-                                    {{flight.place_from.place_name}} <i class="fa fa-plane pr-2 pl-2" aria-hidden="true"></i> {{flight.place_to.place_name}}
-                                    <br>{{flight.flight_name}} - {{flight.plane_name}}
+                                    {{flight.from.city}} <i class="fa fa-plane pr-2 pl-2" aria-hidden="true"></i> {{flight.to.city}}
+                                    <br>{{flight.brand}} - {{flight.planeName}}
                                     <br>Hành khách x{{members}}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="align-middle text-left text-primary" style="font-size: 1.2rem;">Tổng tiền</td>
-                                <td class="align-middle" style="font-size: 1.2rem;">{{total}} VND</td>
+                                <td class="align-middle" style="font-size: 1.2rem;">{{formatPrice total}} VND</td>
                             </tr>
                         </tbody>
                     </table>
@@ -83,3 +83,27 @@
     </div>
 </div>
 <!-- User Info End -->
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        $('#btn-book').on('click', function(event){
+            event.preventDefault()
+            $.ajax({
+                url: '/ticket/book',
+                method: 'post',
+                success: function (res) {
+                    if (res.err) {
+                        showToast(res.message, "error");
+                    }
+                    else {
+                        showToast("Đặt vé thành công");
+                        setTimeout(() => {
+                            window.location.href = "/user"
+                        }, 1000)
+                    }
+                }
+            })
+        })
+    })
+</script>

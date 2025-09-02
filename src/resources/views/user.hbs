@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="flex mb-4">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 70px; height: 70px">	
-                        <h5 class="my-1 ml-3">{{name}}</h5>
+                        <h5 class="my-1 ml-3">{{user.name}}</h5>
                     </div>
                     <a href="user/edit" class="text-muted mb-1 block pl-2">Cập nhật thông tin</a><br>
                     <a href="login/logout" class="text-muted mb-1 block pl-2">Đăng xuất</a>
@@ -40,10 +40,10 @@
                     <table class="table order-table text-center mb-0">
                         <tbody class="align-middle">
                             <tr>
-                                <th>#Ngày đặt vé {{this.bookAt}}</th>
-                                <th></th>
-                                <th></th>
-                                {{#if this.is_checkin}}
+                                <th>#Ngày đặt vé {{formatDate this.createdAt}}</th>
+                                <th>Khởi hành</th>
+                                <th>Đến nơi</th>
+                                {{#if this.isCheckedIn}}
                                 <th>Đã Check in</th>
                                 {{else}}
                                 <th>Chờ bay</th>
@@ -53,24 +53,24 @@
                             <tr>
                                 <td class="align-
                                 middle text-left flex max-w-xl">
-                                    <img src="https://seekvectorlogo.com/wp-content/uploads/2022/01/vietnam-airlines-vector-logo-2022-small.png" alt=""
+                                    <img src="https://logos-world.net/wp-content/uploads/2023/01/Vietnam-Airlines-Logo-2002.png" alt=""
                                     class="mr-3" style="width: 5rem; height: 5rem;">
                                     <a href="" class="p-1 hide-content-1 m-0 text-lg font-bold">
-                                        <span class="hide-content-1">Hà Nội đến Nha Trang</span><br>
-                                        <span class="hide-content-2 text-base font-normal">VietnamAirline</span><br>
-                                        <span class="hide-content-2 text-base font-normal">Hành khách: {{this.passenger_count}}</span>
+                                        <span class="hide-content-1">{{this.flightId.from.city}} đến {{this.flightId.to.city}}</span>
+                                        <span class="hide-content-2 text-base font-normal">{{this.flightId.brand}}</span>
+                                        <span class="hide-content-2 text-base font-normal">Hành khách: {{this.members}}</span>
                                     </a>
                                 </td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle"></td>
-                                <td class="align-middle">Code {{this.code}}</td>
+                                <td class="align-middle">{{formatDateTime this.flightId.departureDate}}</td>
+                                <td class="align-middle">{{formatDateTime this.flightId.arrivalDate}}</td>
+                                <td class="align-middle">Mã vé: {{this._id}}</td>
                                 <td class="align-middle"></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
-                                <td class="text-primary text-xl font-semibold">Tổng đơn</td>
-                                <td class="text-xl font-semibold">{{this.total}}vnd</td>
+                                <td class="text-primary text-xl font-semibold">Tổng giá vé</td>
+                                <td class="text-xl font-semibold">{{formatPrice this.totalPrice}} vnd</td>
                                 <td></td>
                             </tr>
                         </tbody>

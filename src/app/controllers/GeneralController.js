@@ -53,13 +53,13 @@ class GeneralController {
 
     //POST /seat
     seat(req, res, next) {
-        var members = req.session.members || -1;
-        if (members == -1) {
-            res.redirect("home");
-            return;
-        }
-        var flight = req.session.flight;
-        var passengers = [];
+        //     var members = req.session.members || -1;
+        //     if (members == -1) {
+        //         res.redirect("home");
+        //         return;
+        //     }
+        //     var flight = req.session.flight;
+        //     var passengers = [];
         // if (members == 1) {
         //     passengers.push(new User(req.body));
         // } else {
@@ -73,22 +73,20 @@ class GeneralController {
         //     }
         // }
         //save passengers
-        req.session.passengers = passengers;
-        var total = req.session.total;
+        // req.session.passengers = passengers;
+        // var total = req.session.total;
         // Promise.all([
         //     GeneralRepo.findAllSeat(),
         //     GeneralRepo.findBookingSeat(flight.flight_id),
         // ]).then((results) => {
         //     var seat_map = results[0][0];
         //     var seat_booked = results[1][0];
-
         //     seat_booked.forEach((item) => {
         //         var index = item.seat_id - 1;
         //         seat_map[index].status = true;
         //     });
         //     const maps = [];
         //     let index = 0;
-
         //     for (let i = 0; i < 9; i++) {
         //         const row = [];
         //         for (let j = 0; j < 4; j++) {
@@ -97,7 +95,6 @@ class GeneralController {
         //         }
         //         maps.push(row);
         //     }
-
         //     res.render("seat", {
         //         flight,
         //         total,
