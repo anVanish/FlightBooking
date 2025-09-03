@@ -23,8 +23,8 @@ class GeneralController {
             var _id = req.params.id;
             const blog = await Blogs.findOne({ _id });
             blog.content = blog.content.replaceAll("\n", "<br>");
-            await Blogs.findOneAndUpdate({ _id }, { views: blog.views + 1 });
             const popBlogs = await Blogs.find({}).sort({ views: -1 }).limit(3);
+            await Blogs.findOneAndUpdate({ _id }, { views: blog.views + 1 });
 
             res.render("blogDetail", {
                 blog: blog.toObject(),
