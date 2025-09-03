@@ -27,20 +27,20 @@
                 <div class="single-post row">
                     <div class="col-lg-3  col-md-3 meta-details">
                         <div class="user-details row">
-                            <p class="user-name col-lg-12 col-md-12 col-6"><a>Mark wiens</a> <span class="lnr lnr-user"></span></p>
-                            <p class="date col-lg-12 col-md-12 col-6"><a>{{this.public_date}}</a> <span class="lnr lnr-calendar-full"></span></p>
-                            <p class="view col-lg-12 col-md-12 col-6"><a>{{this.view}} Views</a> <span class="lnr lnr-eye"></span></p>					
+                            <p class="user-name col-lg-12 col-md-12 col-6"><a>Admin</a> <span class="lnr lnr-user"></span></p>
+                            <p class="date col-lg-12 col-md-12 col-6"><a>{{formatDate this.createdAt}}</a> <span class="lnr lnr-calendar-full"></span></p>
+                            <p class="view col-lg-12 col-md-12 col-6"><a>{{this.views}} Views</a> <span class="lnr lnr-eye"></span></p>					
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9 ">
                         <div class="feature-img">
                             <img class="img-fluid" src="{{this.image}}" alt="">
                         </div>
-                        <a class="posts-title" href="/blog/{{this.article_id}}"><h3>{{this.header}}</h3></a>
+                        <a class="posts-title" href="/blog/{{this._id}}"><h3>{{this.header}}</h3></a>
                         <p class="excert hide-content-3">
-                            {{this.content}}	
+                            {{this.brief}}	
                         </p>
-                        <a href="blog/{{this.article_id}}" class="primary-btn">Xem thêm</a>
+                        <a href="blog/{{this._id}}" class="primary-btn">Xem thêm</a>
                     </div>
                 </div>	
                 {{/each}}													
@@ -56,14 +56,14 @@
                     <div class="single-sidebar-widget popular-post-widget">
                         <h4 class="popular-title">Bài viết phổ biến</h4>
                         <div class="popular-post-list">
-                            {{#each pops}}
+                            {{#each popBlogs}}
                             <div class="single-post-list d-flex flex-row align-items-center">
                                 <div class="thumb">
                                     <img class="img-fluid" src="{{this.image}}" alt="" style="width: 200px;">
                                 </div>
                                 <div class="details">
-                                    <a href="blog/{{this.article_id}}"><h6>{{this.header}}</h6></a>
-                                    <p>{{this.view}} Views</p>
+                                    <a href="blog/{{this._id}}"><h6>{{this.header}}</h6></a>
+                                    <p>{{this.views}} Views</p>
                                 </div>
                             </div>
                             {{/each}}															

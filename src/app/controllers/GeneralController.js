@@ -1,4 +1,5 @@
-const User = require("../models/UserModel");
+const Users = require("../models/UserModel");
+const Blogs = require("../models/BlogModel");
 
 class GeneralController {
     //GET /about
@@ -7,48 +8,31 @@ class GeneralController {
     }
 
     //GET /blog
-    blog(req, res, next) {
-        // Promise.all([GeneralRepo.findAllBlog(), GeneralRepo.findPopBlog()])
-        //     .then((results) => {
-        //         var blogs = results[0][0]
-        //         var pops = results[1][0]
-        //         blogs = blogs.map(blog=>{
-        //             const date = new Date(blog.public_date)
-        //             const newDate = date.toISOString().split('T')[0]
-        //             return {...blog, public_date: newDate}
-        //         })
-        //         res.render('blog', {
-        //             blogs,
-        //             pops
-        //         })
-        //     })
-
-        res.render("blog");
+    async blog(req, res, next) {
+        const blogs = await Blogs.find({}).sort({ createdAt: -1 });
+        const popBlogs = await Blogs.find({}).sort({ views: -1 }).limit(3);
+        res.render("blog", {
+            blogs: blogs.map((b) => b.toObject()),
+            popBlogs: popBlogs.map((p) => p.toObject()),
+        });
     }
 
     //GET /blog/:id
-    detail(req, res, next) {
-        var id = req.params.id;
-        // GeneralRepo.readBlog(id);
-        // Promise.all([
-        //     GeneralRepo.findBlogById(id),
-        //     GeneralRepo.findPopBlog(),
-        // ]).then((results) => {
-        //     var blog = results[0][0][0];
-        //     var pops = results[1][0];
-        //     const newDate = blog.public_date.toISOString().split("T")[0];
-        //     blog.public_date = newDate;
-        //     const contents = blog.content.split("\\n");
-        //     try {
-        //         blog.first = contents[0];
-        //         blog.second = contents[1];
-        //         blog.third = contents[2];
-        //     } catch (err) {}
-        //     res.render("blogDetail", {
-        //         blog,
-        //         pops,
-        //     });
-        // });
+    async detail(req, res, next) {
+        try {
+            var _id = req.params.id;
+            const blog = await Blogs.findOne({ _id });
+            blog.content = blog.content.replaceAll("\n", "<br>");
+            await Blogs.findOneAndUpdate({ _id }, { views: blog.views + 1 });
+            const popBlogs = await Blogs.find({}).sort({ views: -1 }).limit(3);
+
+            res.render("blogDetail", {
+                blog: blog.toObject(),
+                popBlogs: popBlogs.map((p) => p.toObject()),
+            });
+        } catch (err) {
+            next(err);
+        }
     }
 
     //POST /seat

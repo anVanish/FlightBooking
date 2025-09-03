@@ -7,7 +7,7 @@
                 <h1 class="text-white">
                     Chi tiết bài viết				
                 </h1>	
-                <p class="text-white link-nav"><a href="../home">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="../blog">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href=""> Blog Details Page</a></p>
+                <p class="text-white link-nav"><a href="/home">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="/blog">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="#"> Blog Details Page</a></p>
             </div>	
         </div>
     </div>
@@ -27,9 +27,9 @@
                     </div>
                     <div class="col-lg-3  col-md-3 meta-details">
                         <div class="user-details row">
-                            <p class="user-name col-lg-12 col-md-12 col-6"><a>Mark wiens</a> <span class="lnr lnr-user"></span></p>
-                            <p class="date col-lg-12 col-md-12 col-6"><a>{{blog.public_date}}</a> <span class="lnr lnr-calendar-full"></span></p>
-                            <p class="view col-lg-12 col-md-12 col-6"><a>{{blog.view}} Views</a> <span class="lnr lnr-eye"></span></p>
+                            <p class="user-name col-lg-12 col-md-12 col-6"><a>Admin</a> <span class="lnr lnr-user"></span></p>
+                            <p class="date col-lg-12 col-md-12 col-6"><a>{{formatDateTime blog.createdAt}}</a> <span class="lnr lnr-calendar-full"></span></p>
+                            <p class="view col-lg-12 col-md-12 col-6"><a>{{blog.views}} Views</a> <span class="lnr lnr-eye"></span></p>
                             <ul class="social-links col-lg-12 col-md-12 col-6">
                                 <li><a><i class="fa fa-facebook"></i></a></li>
                                 <li><a><i class="fa fa-twitter"></i></a></li>
@@ -40,20 +40,12 @@
                     <div class="col-lg-9 col-md-9">
                         <h3 class="mt-20 mb-20">{{blog.header}}</h3>
                         <p class="excert">
-                            {{blog.first}}
+                            {{blog.brief}}
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <div class="quotes">
-                            {{blog.second}}	
-                        </div>
-                        <div class="row mt-30 mb-30">
-                            
-                            <div class="col-lg-12 mt-30">
-                                <p>
-                                    {{blog.third}}	
-                                </p>									
-                            </div>									
+                            {{{blog.content}}}
                         </div>
                     </div>
                 </div>
@@ -70,14 +62,14 @@
                     <div class="single-sidebar-widget popular-post-widget">
                         <h4 class="popular-title">Bài viết phổ biến</h4>
                         <div class="popular-post-list">
-                            {{#each pops}}
+                            {{#each popBlogs}}
                             <div class="single-post-list d-flex flex-row align-items-center">
                                 <div class="thumb">
                                     <img class="img-fluid" src="{{this.image}}" style="width: 200px;" alt="">
                                 </div>
                                 <div class="details">
-                                    <a href="{{this.article_id}}"><h6>{{this.header}}</h6></a>
-                                    <p>{{this.view}} Views</p>
+                                    <a href="{{this._id}}"><h6>{{this.header}}</h6></a>
+                                    <p>{{this.views}} Views</p>
                                 </div>
                             </div>
                             {{/each}}														
