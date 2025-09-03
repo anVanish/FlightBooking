@@ -17,7 +17,7 @@ class PassengerController {
 
             if (!members) return res.redirect("home");
             var memberArr = [];
-            for (var i = 0; i < members; i++) memberArr.push(0);
+            for (var i = 1; i <= members; i++) memberArr.push(i);
 
             let flight = await Flights.findOne({ _id: flightId })
                 .populate("from")

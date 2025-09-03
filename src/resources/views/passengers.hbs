@@ -28,7 +28,7 @@
                                 <div class="col-lg-12">
                                     <form id="form-passenger" class="form-area contact-form text-right" id="form-pass" action="/ticket/book" method="post">
                                         {{#each memberArr}}
-                                        <h3 class="text-primary text-left mb-20">Thông tin hành khách</h3>	
+                                        <h3 class="text-primary text-left mb-20">Thông tin hành khách {{this}}</h3>	
                                         <div class="row">
                                             <div class="col-lg-6 form-group">
                                                 <input name="name" placeholder="Tên" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tên'" class="common-input mb-20 form-control" required type="text">
